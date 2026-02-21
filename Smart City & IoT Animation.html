@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City & IoT - ICT & Economics Demo</title>
+    <style>
+        /* মডার্ন নাইট থিম / স্মার্ট সিটি ভাইব */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় রাতের আকাশ */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(14, 165, 233, 0.2); /* সায়ান বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #0ea5e9; /* মডার্ন সায়ান / টেক ব্লু */
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        /* বিল্ডিংয়ের সাধারণ স্টাইল */
+        .building {
+            fill: #020617; /* একেবারে গাঢ় রং */
+            stroke: #334155;
+            stroke-width: 1;
+        }
+
+        /* স্মার্ট জানালা (Windows) - আলো জ্বলা ও নেভা */
+        .window {
+            fill: #fef08a; /* হলুদাভ আলো */
+            opacity: 0.1; /* ডিফল্টভাবে নেভানো (অল্প দেখা যাবে) */
+            /* স্মার্ট লাইটিং অ্যানিমেশন */
+            animation: smartLight 6s infinite;
+        }
+
+        /* আলাদা আলাদা জানালার জন্য ভিন্ন টাইমিং (র‍্যান্ডম ফিল দেওয়ার জন্য) */
+        .win-1 { animation-delay: 0.5s; animation-duration: 4s; }
+        .win-2 { animation-delay: 2s; animation-duration: 7s; fill: #38bdf8; /* কিছু সায়ান আলো (টেক ল্যাব) */ }
+        .win-3 { animation-delay: 1.2s; animation-duration: 5s; }
+        .win-4 { animation-delay: 3.5s; animation-duration: 8s; }
+        .win-5 { animation-delay: 0.2s; animation-duration: 6s; fill: #38bdf8; }
+
+        /* নবায়নযোগ্য শক্তি: উইন্ডমিলের ব্লেড ঘূর্ণন */
+        .windmill-blades {
+            transform-origin: 320px 140px; /* ব্লেডের হাবের কেন্দ্র */
+            animation: spinBlades 8s linear infinite;
+        }
+
+        /* আকাশে ড্রোন ফ্লাইং অ্যানিমেশন */
+        .drone-group {
+            animation: flyDrone 15s linear infinite;
+        }
+
+        /* ড্রোনের সিগন্যাল/স্ক্যানার লাইট ব্লিঙ্ক */
+        .drone-light {
+            fill: #ef4444; /* লাল স্ক্যানিং লাইট */
+            animation: blinkFast 0.5s step-end infinite;
+        }
+
+        /* IoT রেডিও সিগন্যাল (বিল্ডিংয়ের ওপর থেকে) */
+        .iot-signal {
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            opacity: 0;
+            animation: emitSignal 3s ease-out infinite;
+        }
+        .sig-2 { animation-delay: 0.5s; }
+        .sig-3 { animation-delay: 1s; }
+
+        /* অ্যানিমেশন কি-ফ্রেমসমূহ */
+
+        /* স্মার্ট লাইটিং (জানালা অন-অফ) */
+        @keyframes smartLight {
+            0%, 10% { opacity: 0.1; filter: drop-shadow(0 0 0px transparent); }
+            15%, 50% { opacity: 0.9; filter: drop-shadow(0 0 5px currentColor); }
+            55%, 100% { opacity: 0.1; filter: drop-shadow(0 0 0px transparent); }
+        }
+
+        /* উইন্ডমিল ব্লেড ঘোরা */
+        @keyframes spinBlades {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ড্রোন একপাশ থেকে অন্যপাশে ওড়া (একটু ওপর-নিচ করে) */
+        @keyframes flyDrone {
+            0% { transform: translate(-50px, 30px); }
+            25% { transform: translate(100px, 20px); }
+            50% { transform: translate(250px, 40px); }
+            75% { transform: translate(350px, 15px); }
+            100% { transform: translate(450px, 30px); }
+        }
+
+        /* ড্রোনের লাইট ব্লিঙ্ক */
+        @keyframes blinkFast {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px #ef4444); }
+            50% { opacity: 0.2; }
+        }
+
+        /* বিল্ডিং থেকে IoT সিগন্যাল বের হওয়া */
+        @keyframes emitSignal {
+            0% { transform: scale(0.5); opacity: 0; transform-origin: 100px 90px; }
+            50% { opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; transform-origin: 100px 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>স্মার্ট সিটি (IoT & Green Tech)</h2>
+        <p>প্রযুক্তি ও অর্থনীতির মেলবন্ধন! নবায়নযোগ্য শক্তি (Windmill), স্মার্ট লাইটিং সিস্টেম এবং অটোমেটেড ড্রোন ডেলিভারি—এভাবেই ইন্টারনেট অফ থিংস (IoT) একটি শহরকে স্বয়ংসম্পূর্ণ করে।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 400 300 -->
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- পেছনের ছোট বিল্ডিং (Background Skyline) -->
+                <polygon points="20,300 20,200 50,200 50,180 80,180 80,300" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+                <polygon points="250,300 250,160 290,160 290,300" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+
+                <!-- মূল বিল্ডিং ১ (বাম দিকে - Tech Hub) -->
+                <rect class="building" x="60" y="100" width="80" height="200" rx="2" />
+                <polygon points="60,100 100,70 140,100" class="building" /> <!-- ছাদ -->
+                
+                <!-- বিল্ডিং ১ এর স্মার্ট জানালাগুলো -->
+                <rect class="window win-1" x="75" y="120" width="15" height="20" />
+                <rect class="window win-2" x="110" y="120" width="15" height="20" />
+                <rect class="window win-3" x="75" y="160" width="15" height="20" />
+                <rect class="window win-1" x="110" y="160" width="15" height="20" />
+                <rect class="window win-4" x="75" y="200" width="15" height="20" />
+                <rect class="window win-5" x="110" y="200" width="15" height="20" />
+                <rect class="window win-2" x="75" y="240" width="15" height="20" />
+                <rect class="window win-1" x="110" y="240" width="15" height="20" />
+
+                <!-- বিল্ডিং ১ এর ছাদ থেকে IoT রেডিও সিগন্যাল (Wifi Icon style) -->
+                <path class="iot-signal sig-1" d="M 90 60 Q 100 50 110 60" />
+                <path class="iot-signal sig-2" d="M 80 50 Q 100 30 120 50" />
+                <path class="iot-signal sig-3" d="M 70 40 Q 100 10 130 40" />
+                <circle cx="100" cy="70" r="3" fill="#38bdf8" /> <!-- সিগন্যাল বেস -->
+
+                <!-- মূল বিল্ডিং ২ (মাঝখানে - Corporate) -->
+                <rect class="building" x="160" y="150" width="70" height="150" rx="2" />
+                <!-- বিল্ডিং ২ এর জানালা -->
+                <rect class="window win-3" x="175" y="170" width="40" height="10" />
+                <rect class="window win-4" x="175" y="195" width="40" height="10" />
+                <rect class="window win-1" x="175" y="220" width="40" height="10" />
+                <rect class="window win-5" x="175" y="245" width="40" height="10" />
+                <rect class="window win-2" x="175" y="270" width="40" height="10" />
+
+                <!-- নবায়নযোগ্য শক্তি: উইন্ডমিল (ডান দিকে) -->
+                <!-- উইন্ডমিলের খুঁটি -->
+                <polygon points="315,300 325,300 322,140 318,140" fill="#475569" />
+                <!-- উইন্ডমিলের ঘূর্ণায়মান ব্লেড -->
+                <g class="windmill-blades">
+                    <!-- ব্লেড ১ -->
+                    <polygon points="320,140 318,80 322,80" fill="#e2e8f0" />
+                    <!-- ব্লেড ২ (১২০ ডিগ্রি ঘোরানো) -->
+                    <polygon points="320,140 318,80 322,80" fill="#cbd5e1" transform="rotate(120 320 140)" />
+                    <!-- ব্লেড ৩ (২৪০ ডিগ্রি ঘোরানো) -->
+                    <polygon points="320,140 318,80 322,80" fill="#94a3b8" transform="rotate(240 320 140)" />
+                    <!-- মাঝখানের হাব -->
+                    <circle cx="320" cy="140" r="4" fill="#0f172a" stroke="#e2e8f0" stroke-width="1.5" />
+                </g>
+
+                <!-- ডেলিভারি/সার্ভিল্যান্স ড্রোন (আকাশে) -->
+                <g class="drone-group">
+                    <!-- ড্রোনের বডি -->
+                    <rect x="-15" y="48" width="30" height="4" rx="2" fill="#94a3b8" />
+                    <circle cx="0" cy="50" r="6" fill="#f8fafc" />
+                    <!-- প্রপেলার স্ট্যান্ড -->
+                    <line x1="-12" y1="48" x2="-12" y2="44" stroke="#e2e8f0" stroke-width="1.5" />
+                    <line x1="12" y1="48" x2="12" y2="44" stroke="#e2e8f0" stroke-width="1.5" />
+                    <!-- প্রপেলার (ঘোরা বোঝাতে ছোট ড্যাশ) -->
+                    <line x1="-18" y1="44" x2="-6" y2="44" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1" />
+                    <line x1="6" y1="44" x2="18" y2="44" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1" />
+                    <!-- স্ক্যানিং লাইট / ক্যামেরা -->
+                    <circle cx="0" cy="56" r="2" class="drone-light" />
+                </g>
+
+                <!-- মাটির লাইন (Ground) -->
+                <line x1="0" y1="300" x2="400" y2="300" stroke="#10b981" stroke-width="4" />
+                
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
