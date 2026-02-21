@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>হিরো সেকশন কোডিং অ্যানিমেশন - ICT Demo</title>
+    <style>
+        /* মূল বডি এবং ব্যাকগ্রাউন্ড স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় নীল/স্লেট রং */
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #38bdf8; /* স্কাই ব্লু */
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        /* কোড লাইনের অ্যানিমেশন - টাইপিং ইফেক্ট */
+        .code-line {
+            stroke-width: 4;
+            stroke-linecap: round;
+            /* ডিফল্টভাবে লাইনগুলো লুকিয়ে রাখা হয়েছে */
+            stroke-dasharray: 150;
+            stroke-dashoffset: 150;
+            animation: typingEffect 6s ease-out infinite;
+        }
+
+        /* সিনট্যাক্স হাইলাইটিং এর মতো ভিন্ন ভিন্ন রং */
+        .tag-color { stroke: #e06c75; }    /* লালচে (যেমন HTML ট্যাগ) */
+        .attr-color { stroke: #e5c07b; }   /* হলুদ (যেমন অ্যাট্রিবিউট) */
+        .value-color { stroke: #98c379; }  /* সবুজ (যেমন ভ্যালু) */
+        .text-color { stroke: #abb2bf; }   /* ধূসর (যেমন সাধারণ টেক্সট) */
+        .css-color { stroke: #c678dd; }    /* বেগুনি (CSS প্রপার্টি) */
+
+        /* প্রতিটি লাইনের টাইপিং শুরু হওয়ার সময় (Delay) */
+        .line-1 { animation-delay: 0.5s; stroke-dasharray: 60; stroke-dashoffset: 60; }
+        .line-2 { animation-delay: 1.5s; stroke-dasharray: 90; stroke-dashoffset: 90; }
+        .line-3 { animation-delay: 2.5s; stroke-dasharray: 120; stroke-dashoffset: 120; }
+        .line-4 { animation-delay: 3.5s; stroke-dasharray: 80; stroke-dashoffset: 80; }
+        .line-5 { animation-delay: 4.5s; stroke-dasharray: 40; stroke-dashoffset: 40; }
+
+        @keyframes typingEffect {
+            0% { stroke-dashoffset: inherit; opacity: 1; }
+            15%, 85% { stroke-dashoffset: 0; opacity: 1; }
+            95%, 100% { stroke-dashoffset: 0; opacity: 0; } /* অ্যানিমেশন শেষে মিলিয়ে যাবে এবং পুনরায় শুরু হবে */
+        }
+
+        /* ব্লিঙ্কিং কার্সর অ্যানিমেশন */
+        .cursor {
+            fill: #528bff;
+            animation: cursorBlink 0.8s step-end infinite, cursorMove 6s infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* কার্সরটি টাইপিংয়ের সাথে সাথে নিচে নামবে */
+        @keyframes cursorMove {
+            0%, 4% { transform: translate(75px, 20px); }
+            15%, 24% { transform: translate(115px, 35px); }
+            35%, 44% { transform: translate(145px, 50px); }
+            55%, 64% { transform: translate(105px, 65px); }
+            75%, 90% { transform: translate(65px, 80px); }
+            95%, 100% { transform: translate(75px, 20px); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>হিরো সেকশন কোডিং</h2>
+        <p>ওয়েব ডেভেলপমেন্টের জাদুকরী মুহূর্ত! ল্যাপটপের স্ক্রিনে ধাপে ধাপে কোড লেখা হচ্ছে এবং একটি আধুনিক ইন্টারফেস তৈরি হচ্ছে।</p>
+        
+        <div class="svg-container">
+            <!-- SVG ল্যাপটপ এবং কোড -->
+            <svg viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- ল্যাপটপের বডি এবং স্ক্রিনের ফ্রেম -->
+                <rect x="20" y="10" width="200" height="130" rx="8" fill="#3f3f46" />
+                <rect x="25" y="15" width="190" height="115" rx="4" fill="#1e1e1e" /> <!-- স্ক্রিনের কালো ব্যাকগ্রাউন্ড -->
+                
+                <!-- ল্যাপটপের নিচের অংশ (কীবোর্ড বেস) -->
+                <path d="M 10 140 L 230 140 L 240 150 L 0 150 Z" fill="#71717a" />
+                <rect x="100" y="140" width="40" height="4" fill="#52525b" rx="2" /> <!-- টাচপ্যাড নচ -->
+
+                <!-- কোড লাইনগুলো (SVG Line ব্যবহার করে টাইপিং ইফেক্ট) -->
+                <g id="code-blocks">
+                    <!-- লাইন ১: <div class="hero"> -->
+                    <line x1="35" y1="30" x2="60" y2="30" class="code-line tag-color line-1" />
+                    <line x1="65" y1="30" x2="90" y2="30" class="code-line attr-color line-1" />
+                    
+                    <!-- লাইন ২: <h1>Welcome</h1> -->
+                    <line x1="45" y1="45" x2="70" y2="45" class="code-line tag-color line-2" />
+                    <line x1="75" y1="45" x2="110" y2="45" class="code-line text-color line-2" />
+                    
+                    <!-- লাইন ৩: <p>Learn Web Dev & AI</p> -->
+                    <line x1="45" y1="60" x2="65" y2="60" class="code-line tag-color line-3" />
+                    <line x1="70" y1="60" x2="140" y2="60" class="code-line value-color line-3" />
+                    
+                    <!-- লাইন ৪: </div> -->
+                    <line x1="35" y1="75" x2="65" y2="75" class="code-line tag-color line-4" />
+                    <line x1="70" y1="75" x2="100" y2="75" class="code-line css-color line-4" />
+                    
+                    <!-- লাইন ৫: শেষ ট্যাগ -->
+                    <line x1="35" y1="90" x2="60" y2="90" class="code-line tag-color line-5" />
+                </g>
+
+                <!-- ব্লিঙ্কিং কার্সর -->
+                <rect width="4" height="12" class="cursor" />
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
