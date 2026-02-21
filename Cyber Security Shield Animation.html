@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাইবার সিকিউরিটি (Cyber Security) - ICT & Web Security Demo</title>
+    <style>
+        /* মডার্ন সাইবার-পাঙ্ক/হ্যাকার থিম স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #050505; /* ডিপ ডার্ক ব্যাকগ্রাউন্ড (কালো) */
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(16, 185, 129, 0.03); /* হালকা সবুজ আভা */
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(16, 185, 129, 0.2); /* সবুজ বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #10b981; /* সাইবার গ্রিন */
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 420px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 300px;
+            height: 350px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ড গ্লো (প্লাসিং) */
+        .shield-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 250px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse at center, rgba(16,185,129,0.3) 0%, rgba(5,5,5,0) 70%);
+            z-index: -1;
+            animation: pulseShieldGlow 3s ease-in-out infinite alternate;
+        }
+
+        /* শিল্ডের আউটলাইন এবং ভেতরের অংশ */
+        .shield-base {
+            fill: rgba(15, 23, 42, 0.8); /* ডার্ক স্লেট */
+            stroke: #10b981; /* সবুজ বর্ডার */
+            stroke-width: 3;
+            stroke-linejoin: round;
+            /* শিল্ডটি হালকা ভাসবে (Hover effect) */
+            animation: floatShield 4s ease-in-out infinite;
+        }
+        
+        .shield-inner-lines {
+            fill: none;
+            stroke: #059669; /* গাঢ় সবুজ */
+            stroke-width: 1.5;
+            opacity: 0.5;
+        }
+
+        /* প্যাডলক (তালা) স্টাইলিং */
+        .lock-body {
+            fill: #10b981;
+            rx: 4; /* রাউন্ডেড কর্নার */
+        }
+        
+        .lock-shackle {
+            fill: none;
+            stroke: #e2e8f0; /* সিলভার/সাদা */
+            stroke-width: 4;
+            stroke-linecap: round;
+            /* তালা খোলা থেকে বন্ধ হওয়ার অ্যানিমেশন */
+            transform-origin: 150px 150px;
+            animation: lockSnap 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+        }
+
+        /* লেজার স্ক্যানার (Laser Scanner) */
+        .scanner-line {
+            fill: none;
+            stroke: #34d399; /* হালকা সাইবার গ্রিন */
+            stroke-width: 2;
+            filter: drop-shadow(0 0 8px #34d399); /* গ্লোয়িং লেজার */
+            /* লেজার ওপর-নিচ স্ক্যান করবে */
+            animation: scanLaser 4s linear infinite;
+        }
+
+        .scanner-overlay {
+            fill: url(#scan-gradient);
+            opacity: 0.3;
+            /* ওভারলে লেজারের সাথে সাথে নামবে */
+            animation: scanOverlay 4s linear infinite;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* শিল্ডের ভাসমান ইফেক্ট */
+        @keyframes floatShield {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ব্যাকগ্রাউন্ড গ্লো এর স্পন্দন */
+        @keyframes pulseShieldGlow {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); filter: blur(20px); }
+        }
+
+        /* তালা (Shackle) স্ন্যাপ বা বন্ধ হওয়ার অ্যানিমেশন */
+        @keyframes lockSnap {
+            0%, 20% { transform: translateY(-15px); } /* আনলক (তালা খোলা এবং ওপরে) */
+            30%, 80% { transform: translateY(0); }    /* লক (তালা বন্ধ) */
+            90%, 100% { transform: translateY(-15px); } /* আবার আনলক */
+        }
+
+        /* লেজার স্ক্যানার ওপর-নিচ করা (শুধু শিল্ডের ভেতরে স্ক্যান করবে) */
+        @keyframes scanLaser {
+            0%, 5% { transform: translateY(80px); opacity: 0; }
+            10% { opacity: 1; }
+            45% { transform: translateY(280px); opacity: 1; }
+            50%, 55% { transform: translateY(280px); opacity: 0; }
+            60% { transform: translateY(80px); opacity: 0; }
+            100% { transform: translateY(80px); opacity: 0; } /* বাকি সময় অপেক্ষা করবে */
+        }
+
+        /* স্ক্যানার ওভারলে (লেজারের পেছনের হালকা আলো) */
+        @keyframes scanOverlay {
+            0%, 5% { transform: translateY(-200px); opacity: 0; }
+            10% { opacity: 0.3; }
+            45% { transform: translateY(0); opacity: 0.3; }
+            50%, 100% { opacity: 0; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="shield-glow"></div>
+
+    <div class="container">
+        <h2>সাইবার সিকিউরিটি শিল্ড</h2>
+        <p>অনলাইন ফ্রিল্যান্সিং এবং ওয়েব ডেভেলপমেন্টে ডেটা নিরাপত্তা সবার আগে! একটি মডার্ন অ্যান্টিভাইরাস বা ফায়ারওয়াল কীভাবে সিস্টেম স্ক্যান ও লক করে, তা দেখুন।</p>
+        
+        <div class="svg-container">
+            <svg viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg">
+                
+                <defs>
+                    <!-- স্ক্যানার ওভারলে গ্রেডিয়েন্ট (সবুজ আলো যা নিচের দিকে ফেড হয়) -->
+                    <linearGradient id="scan-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="rgba(16, 185, 129, 0)" />
+                        <stop offset="80%" stop-color="rgba(16, 185, 129, 0.4)" />
+                        <stop offset="100%" stop-color="rgba(16, 185, 129, 0.8)" />
+                    </linearGradient>
+
+                    <!-- শিল্ডের আকার অনুযায়ী ক্লিপ-পাথ (যাতে লেজার শিল্ডের বাইরে না যায়) -->
+                    <clipPath id="shield-clip">
+                        <path d="M 150 40 
+                                 C 220 40, 260 60, 260 60 
+                                 C 260 180, 220 280, 150 320 
+                                 C 80 280, 40 180, 40 60 
+                                 C 40 60, 80 40, 150 40 Z" />
+                    </clipPath>
+                </defs>
+
+                <!-- পুরো অ্যানিমেশনকে একসাথে ভাসানোর জন্য গ্রুপ -->
+                <g style="animation: floatShield 4s ease-in-out infinite;">
+                    
+                    <!-- মডার্ন শিল্ডের মূল বডি (Vector Shape) -->
+                    <path class="shield-base" 
+                          d="M 150 40 
+                             C 220 40, 260 60, 260 60 
+                             C 260 180, 220 280, 150 320 
+                             C 80 280, 40 180, 40 60 
+                             C 40 60, 80 40, 150 40 Z" />
+
+                    <!-- শিল্ডের ভেতরের জ্যামিতিক লাইন (হাই-টেক ফিল দেওয়ার জন্য) -->
+                    <path class="shield-inner-lines" d="M 150 40 L 150 320" /> <!-- মাঝের লাইন -->
+                    <path class="shield-inner-lines" d="M 60 100 L 240 100" /> <!-- ওপরের ক্রস লাইন -->
+                    <path class="shield-inner-lines" d="M 75 160 L 225 160" /> <!-- মাঝের ক্রস লাইন -->
+                    <path class="shield-inner-lines" d="M 100 230 L 200 230" /> <!-- নিচের ক্রস লাইন -->
+                    
+                    <!-- ডায়াগোনাল লাইনস -->
+                    <path class="shield-inner-lines" d="M 150 160 L 240 100" />
+                    <path class="shield-inner-lines" d="M 150 160 L 60 100" />
+                    <path class="shield-inner-lines" d="M 150 160 L 200 230" />
+                    <path class="shield-inner-lines" d="M 150 160 L 100 230" />
+
+                    <!-- লেজার স্ক্যানার (ক্লিপ-পাথের ভেতরে) -->
+                    <g clip-path="url(#shield-clip)">
+                        <!-- লেজারের পেছনের ওভারলে -->
+                        <rect x="0" y="0" width="300" height="280" class="scanner-overlay" />
+                        <!-- লেজার লাইন -->
+                        <line x1="0" y1="0" x2="300" y2="0" class="scanner-line" />
+                    </g>
+
+                    <!-- প্যাডলক (তালা) - শিল্ডের ঠিক মাঝখানে -->
+                    <g transform="translate(0, 10)">
+                        <!-- তাড়ার হুক বা শ্যাকল (Shackle) - এটি ওঠানামা করবে -->
+                        <!-- d="M 135 150 ... " দিয়ে একটি U শেপ আঁকা হয়েছে -->
+                        <path class="lock-shackle" d="M 135 150 L 135 130 A 15 15 0 0 1 165 130 L 165 150" />
+                        
+                        <!-- তাড়ার মূল বডি (Lock Body) -->
+                        <rect x="120" y="150" width="60" height="45" class="lock-body" />
+                        
+                        <!-- চাবির ফুটো (Keyhole) -->
+                        <circle cx="150" cy="165" r="6" fill="#0f172a" />
+                        <path d="M 147 165 L 145 180 L 155 180 L 153 165 Z" fill="#0f172a" />
+                    </g>
+
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
