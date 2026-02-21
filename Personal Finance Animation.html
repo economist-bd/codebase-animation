@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piggy Bank Savings - Economics & FinTech Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1b4b; /* গাঢ় পার্পেল/নেভি ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #f472b6; /* পিংক রং */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            max-width: 420px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* কয়েন ড্রপ অ্যানিমেশন */
+        .coin-group {
+            animation: dropCoin 3s ease-in infinite;
+        }
+
+        /* পিগি ব্যাংকের বাউন্স অ্যানিমেশন */
+        .piggy-group {
+            transform-origin: 150px 230px; /* নিচ থেকে বাউন্স করবে */
+            animation: bouncePiggy 3s ease-out infinite;
+        }
+
+        /* স্পার্কল বা খুশির ঝলকানি অ্যানিমেশন */
+        .sparkle-group {
+            transform-origin: 150px 170px;
+            animation: popSparkle 3s ease-out infinite;
+        }
+        
+        /* স্পার্কল শেপ স্টাইলিং */
+        .sparkle {
+            fill: #fbbf24; /* সোনালী হলুদ */
+        }
+
+        /* অ্যানিমেশন কি-ফ্রেমসমূহ */
+
+        /* ১. কয়েন ওপর থেকে পড়বে এবং ভেতরে ঢুকে অদৃশ্য হবে */
+        @keyframes dropCoin {
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { transform: translateY(-20px); opacity: 1; }
+            35% { transform: translateY(110px) scale(1); opacity: 1; }
+            40% { transform: translateY(125px) scale(0); opacity: 0; } /* স্লটে ঢোকার মুহূর্তে ছোট হয়ে গায়েব */
+            100% { transform: translateY(125px) scale(0); opacity: 0; }
+        }
+
+        /* ২. পিগি ব্যাংকের লাফ বা বাউন্স (কয়েন পড়ার ঠিক পরপরই) */
+        @keyframes bouncePiggy {
+            0%, 35% { transform: scale(1) translateY(0); }
+            40% { transform: scale(1.05, 0.95) translateY(5px); } /* ধাক্কা লাগার পর একটু চ্যাপ্টা হবে */
+            45% { transform: scale(0.95, 1.05) translateY(-15px); } /* খুশিতে লাফ দেবে */
+            50% { transform: scale(1.02, 0.98) translateY(2px); }
+            55%, 100% { transform: scale(1) translateY(0); }
+        }
+
+        /* ৩. চারপাশের তারার ঝলকানি */
+        @keyframes popSparkle {
+            0%, 40% { transform: scale(0); opacity: 0; }
+            45% { transform: scale(1.2); opacity: 1; }
+            60%, 100% { transform: scale(1.5); opacity: 0; } /* ছড়িয়ে গায়েব হয়ে যাবে */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>পার্সোনাল ফাইন্যান্স (সঞ্চয়)</h2>
+        <p>সঞ্চয়ের অভ্যাস ছোটবেলা থেকেই গড়ে তোলা উচিত। প্রতিটি পয়সা জমানোর আনন্দকে এই চমৎকার UI অ্যানিমেশনের মাধ্যমে তুলে ধরা হয়েছে।</p>
+        
+        <div class="svg-container">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- গ্লো ব্যাকগ্রাউন্ড -->
+                <circle cx="150" cy="180" r="90" fill="rgba(244, 114, 182, 0.1)" filter="blur(20px)" />
+
+                <!-- স্পার্কলস (তারার ঝলকানি) - কয়েন পড়ার পর পপ আপ হবে -->
+                <g class="sparkle-group">
+                    <!-- Top Left -->
+                    <path class="sparkle" d="M 80 100 L 85 110 L 95 112 L 85 115 L 80 125 L 75 115 L 65 112 L 75 110 Z" />
+                    <!-- Top Right -->
+                    <path class="sparkle" d="M 220 90 L 225 100 L 235 102 L 225 105 L 220 115 L 215 105 L 205 102 L 215 100 Z" />
+                    <!-- Bottom Left -->
+                    <path class="sparkle" d="M 60 180 L 63 186 L 70 188 L 63 190 L 60 196 L 57 190 L 50 188 L 57 186 Z" />
+                    <!-- Bottom Right -->
+                    <path class="sparkle" d="M 240 190 L 244 198 L 252 200 L 244 202 L 240 210 L 236 202 L 228 200 L 236 198 Z" />
+                </g>
+
+                <!-- কয়েন (ওপর থেকে পড়বে) -->
+                <g class="coin-group">
+                    <circle cx="150" cy="0" r="18" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+                    <circle cx="150" cy="0" r="12" fill="none" stroke="#d97706" stroke-width="1.5" />
+                    <!-- টাকার বা ডলারের চিহ্ন ($) -->
+                    <text x="150" y="6" font-family="Arial" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">$</text>
+                </g>
+
+                <!-- পিগি ব্যাংক (মাটির ব্যাংক) -->
+                <g class="piggy-group">
+                    <!-- পেছনের পা -->
+                    <rect x="100" y="210" width="16" height="25" rx="8" fill="#be185d" />
+                    <rect x="160" y="210" width="16" height="25" rx="8" fill="#be185d" />
+
+                    <!-- লেজ -->
+                    <path d="M 70 170 Q 40 160 55 145 Q 70 135 60 125 Q 55 120 45 125" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" />
+
+                    <!-- পিগির শরীর (Main Body) -->
+                    <ellipse cx="140" cy="165" rx="75" ry="60" fill="#f472b6" />
+                    
+                    <!-- সামনের পা -->
+                    <rect x="115" y="215" width="18" height="25" rx="9" fill="#db2777" />
+                    <rect x="175" y="215" width="18" height="25" rx="9" fill="#db2777" />
+
+                    <!-- কান -->
+                    <path d="M 175 120 L 195 90 L 205 125 Z" fill="#db2777" stroke-linejoin="round" />
+                    <path d="M 155 115 L 165 85 L 180 110 Z" fill="#be185d" stroke-linejoin="round" />
+
+                    <!-- মাথা ও নাক (Snout) -->
+                    <ellipse cx="210" cy="155" rx="18" ry="25" fill="#fbcfe8" />
+                    <!-- নাকের ফুটো -->
+                    <ellipse cx="205" cy="150" rx="3" ry="6" fill="#db2777" />
+                    <ellipse cx="215" cy="152" rx="3" ry="6" fill="#db2777" />
+
+                    <!-- চোখ -->
+                    <circle cx="180" cy="140" r="5" fill="#1e1b4b" />
+                    <path d="M 175 130 Q 180 125 185 130" fill="none" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" />
+
+                    <!-- হাসিমুখ -->
+                    <path d="M 185 165 Q 190 175 195 168" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" />
+
+                    <!-- কয়েন ঢোকার স্লট (Coin Slot) -->
+                    <rect x="130" y="105" width="30" height="6" rx="3" fill="#831843" transform="rotate(-5 145 108)" />
+                    <!-- স্লটের ভেতরের গাঢ় অংশ -->
+                    <rect x="132" y="106" width="26" height="4" rx="2" fill="#4c0519" transform="rotate(-5 145 108)" />
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
