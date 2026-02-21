@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Education & E-Learning - ICT Demo</title>
+    <style>
+        /* মডার্ন ডার্ক একাডেমিক থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #17172b; /* গাঢ় ইন্ডিগো/নেভি ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(251, 191, 36, 0.15); /* হালকা সোনালী বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #fbbf24; /* সোনালী/অ্যাম্বার রং (সাফল্যের প্রতীক) */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ড এডুকেশনাল গ্লো */
+        .edu-glow {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(251,191,36,0.15) 0%, rgba(23,23,43,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+
+        /* গ্রাজুয়েশন ক্যাপের ভাসমান অ্যানিমেশন */
+        .cap-group {
+            animation: floatCap 4s ease-in-out infinite;
+        }
+
+        /* ক্যাপের সুতো (Tassel) দোলা */
+        .tassel-group {
+            transform-origin: 175px 85px; /* ক্যাপের মাঝখানের বোতাম থেকে দুলবে */
+            animation: swingTassel 4s ease-in-out infinite;
+        }
+
+        /* বইয়ের স্টাইলিং */
+        .book-base {
+            fill: #e2e8f0; /* বইয়ের পাতার রং */
+            stroke: #94a3b8;
+            stroke-width: 1;
+        }
+        
+        .book-cover {
+            fill: #312e81; /* বইয়ের মলাটের রং (গাঢ় নীল) */
+            stroke: #1e1b4b;
+            stroke-width: 2;
+        }
+
+        /* বইয়ের পাতা উল্টানোর অ্যানিমেশন (3D Effect) */
+        .flipping-page {
+            fill: #ffffff;
+            stroke: #cbd5e1;
+            stroke-width: 1;
+            transform-origin: 175px 230px; /* বইয়ের শিরদাঁড়া (Spine) বরাবর */
+            /* ScaleX ব্যবহার করে 3D পাতা উল্টানোর বিভ্রম তৈরি করা হয়েছে */
+            animation: flipPage 3s linear infinite;
+        }
+        
+        /* দ্বিতীয় পাতাটি একটু দেরিতে উল্টাবে */
+        .flipping-page-2 {
+            animation: flipPage 3s linear infinite;
+            animation-delay: 1.5s;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* গ্লো স্পন্দন */
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); filter: blur(20px); }
+        }
+
+        /* ক্যাপ ওপরে-নিচে ভাসা */
+        @keyframes floatCap {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* সুতো (Tassel) দোল খাওয়া */
+        @keyframes swingTassel {
+            0% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+            100% { transform: rotate(-15deg); }
+        }
+
+        /* পাতা উল্টানো (ScaleX 1 থেকে 0 হয়ে -1 এ যাবে, ফলে ডান থেকে বাঁয়ে উল্টে যাবে) */
+        @keyframes flipPage {
+            0% { transform: scaleX(1) skewY(0deg); fill: #ffffff; opacity: 1; }
+            45% { transform: scaleX(0.1) skewY(-10deg); fill: #e2e8f0; opacity: 0.9; }
+            50% { transform: scaleX(0) skewY(0deg); opacity: 0; } /* মাঝখানে এলে অদৃশ্য */
+            55% { transform: scaleX(-0.1) skewY(10deg); fill: #e2e8f0; opacity: 0.9; }
+            100% { transform: scaleX(-1) skewY(0deg); fill: #ffffff; opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="edu-glow"></div>
+
+    <div class="container">
+        <h2>অনলাইন এডুকেশন ও লার্নিং</h2>
+        <p>জ্ঞানের কোনো সীমানা নেই! একটি ই-লার্নিং প্ল্যাটফর্ম বা অনলাইন কোর্সের ওয়েবসাইটে শিক্ষার্থীদের অনুপ্রাণিত করতে এই ধরনের অ্যানিমেশন ব্যবহার করা হয়।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 350 350 -->
+            <svg viewBox="0 0 350 350" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- খোলা বই (Open Book) - নিচে থাকবে -->
+                <g transform="translate(0, 10)">
+                    <!-- পেছনের মলাট (Book Cover) -->
+                    <!-- বাঁদিকের মলাট -->
+                    <path class="book-cover" d="M 175 285 Q 110 300 65 260 L 60 270 Q 110 315 175 300 Z" />
+                    <!-- ডানদিকের মলাট -->
+                    <path class="book-cover" d="M 175 285 Q 240 300 285 260 L 290 270 Q 240 315 175 300 Z" />
+
+                    <!-- বইয়ের বাঁদিকের পাতাগুলো (Static) -->
+                    <path class="book-base" d="M 175 220 Q 120 235 70 210 L 70 260 Q 120 285 175 270 Z" />
+                    <path class="book-base" d="M 175 225 Q 120 240 70 215 L 70 265 Q 120 290 175 275 Z" />
+                    <path class="book-base" d="M 175 230 Q 120 245 70 220 L 70 270 Q 120 295 175 280 Z" />
+                    
+                    <!-- বইয়ের ডানদিকের পাতাগুলো (Static) -->
+                    <path class="book-base" d="M 175 220 Q 230 235 280 210 L 280 260 Q 230 285 175 270 Z" />
+                    <path class="book-base" d="M 175 225 Q 230 240 280 215 L 280 265 Q 230 290 175 275 Z" />
+                    <path class="book-base" d="M 175 230 Q 230 245 280 220 L 280 270 Q 230 295 175 280 Z" />
+
+                    <!-- শিরদাঁড়া (Book Spine) -->
+                    <path d="M 175 220 L 175 285" stroke="#64748b" stroke-width="2" fill="none" />
+
+                    <!-- উল্টানো পাতা (Flipping Pages) -->
+                    <!-- এই পাতাটি ডান দিক থেকে বাঁ দিকে উল্টাবে -->
+                    <path class="flipping-page" d="M 175 220 Q 230 235 280 210 L 280 260 Q 230 285 175 270 Z" />
+                    <path class="flipping-page-2" d="M 175 220 Q 230 235 280 210 L 280 260 Q 230 285 175 270 Z" />
+                </g>
+
+                <!-- গ্রাজুয়েশন ক্যাপ (Graduation Cap) - শূন্যে ভাসবে -->
+                <g class="cap-group">
+                    <!-- ক্যাপের নিচের অংশ (Skull cap) -->
+                    <path d="M 130 95 Q 175 130 220 95 L 220 120 Q 175 160 130 120 Z" fill="#1e293b" />
+                    
+                    <!-- ক্যাপের ওপরের বোর্ড (Diamond Shape) -->
+                    <polygon points="175,60 250,85 175,110 100,85" fill="#0f172a" stroke="#334155" stroke-width="2" />
+                    
+                    <!-- সুতো ও দুল (Tassel Group) -->
+                    <g class="tassel-group">
+                        <!-- সুতো -->
+                        <path d="M 175 85 Q 200 90 230 125" fill="none" stroke="#fbbf24" stroke-width="2" />
+                        <!-- দুলের মাথার গিঁট -->
+                        <circle cx="230" cy="125" r="3" fill="#f59e0b" />
+                        <!-- দুলের নিচের অংশ (Fringe) -->
+                        <polygon points="228,125 232,125 235,145 225,145" fill="#fbbf24" />
+                    </g>
+                    
+                    <!-- মাঝখানের বোতাম (Button) -->
+                    <circle cx="175" cy="85" r="4" fill="#fbbf24" />
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
