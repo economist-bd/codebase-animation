@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH Academy - 5D Dancing Animation</title>
+    <style>
+        /* মডার্ন ডার্ক 5D থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%);
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            perspective: 1200px; /* 3D/5D ডেপথ তৈরি করার জন্য পার্সপেক্টিভ */
+        }
+
+        /* মূল 5D স্ক্রিন কন্টেইনার */
+        .academy-screen {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(-5deg); /* স্ক্রিনটিকে সামান্য থ্রিডি অ্যাঙ্গেলে বাঁকানো */
+            animation: floatingScreen 6s ease-in-out infinite alternate;
+        }
+
+        /* পেছনের মেইন ডিসপ্লে / ওয়েবসাইট ব্যাকগ্রাউন্ড */
+        .screen-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(139, 92, 246, 0.2));
+            border-radius: 20px;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 
+                0 0 40px rgba(56, 189, 248, 0.2),
+                inset 0 0 50px rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(10px);
+            transform: translateZ(-100px); /* 5D ডেপথ: পেছনে পাঠানো */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            overflow: hidden;
+        }
+
+        /* MH Academy নিয়ন লোগো */
+        .logo-text {
+            font-size: 48px;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                0 0 10px #38bdf8,
+                0 0 20px #38bdf8,
+                0 0 40px #8b5cf6,
+                0 0 80px #8b5cf6;
+            animation: neonPulse 2s infinite alternate;
+            z-index: 2;
+        }
+
+        .sub-text {
+            font-size: 18px;
+            color: #cbd5e1;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        /* থ্রিডি ফ্লোর বা মেঝের স্টেজ */
+        .stage-floor {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            width: 600px;
+            height: 200px;
+            background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.4) 0%, rgba(2, 6, 23, 0) 70%);
+            transform: translateX(-50%) rotateX(70deg) translateZ(50px);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.5);
+            z-index: 1;
+        }
+
+        /* ডান্সিং ক্যারেক্টার কন্টেইনার */
+        .dancers-container {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(80px); /* 5D ডেপথ: সামনে আনা */
+            display: flex;
+            gap: 100px;
+            z-index: 10;
+        }
+
+        /* --- ক্যারেক্টার গ্লোবাল স্টাইলিং --- */
+        .character {
+            width: 150px;
+            height: 250px;
+            position: relative;
+            /* আনন্দে লাফানোর অ্যানিমেশন */
+            animation: bounceDance 0.6s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
+        }
+
+        /* মেয়েটির জাম্পিং একটু ভিন্ন সময়ে হবে (Delay) */
+        .girl-char {
+            animation-delay: 0.3s;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.5)); /* থ্রিডি শ্যাডো */
+        }
+
+        /* শরীরের অঙ্গ-প্রত্যঙ্গের অ্যানিমেশন ক্লাসসমূহ */
+        .head {
+            transform-origin: center 40px;
+            animation: headBob 0.6s infinite alternate;
+        }
+        
+        .arm-left {
+            transform-origin: 40px 80px; /* কাঁধের জয়েন্ট */
+            animation: swingArmLeft 0.6s infinite alternate;
+        }
+        
+        .arm-right {
+            transform-origin: 110px 80px; /* কাঁধের জয়েন্ট */
+            animation: swingArmRight 0.6s infinite alternate;
+        }
+
+        .leg-left {
+            transform-origin: 60px 160px; /* হিপ জয়েন্ট */
+            animation: swingLegLeft 0.6s infinite alternate;
+        }
+
+        .leg-right {
+            transform-origin: 90px 160px; /* হিপ জয়েন্ট */
+            animation: swingLegRight 0.6s infinite alternate;
+        }
+
+        /* মেয়েটির জন্য আলাদা ডান্স মুভমেন্ট */
+        .girl-char .arm-left { animation: waveArmLeft 0.6s infinite alternate; }
+        .girl-char .arm-right { animation: waveArmRight 0.6s infinite alternate; }
+        .girl-char .head { animation: headTilt 0.6s infinite alternate; }
+
+        /* --- 5D পার্টিক্যালস (Confetti / Floating Elements) --- */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+            transform-style: preserve-3d;
+            animation: floatParticle 5s linear infinite;
+        }
+        .p1 { width: 10px; height: 10px; background: #fbbf24; top: 20%; left: 10%; animation-duration: 4s; transform: translateZ(50px); }
+        .p2 { width: 15px; height: 15px; background: #ec4899; top: 10%; left: 80%; animation-duration: 6s; transform: translateZ(120px); }
+        .p3 { width: 8px; height: 8px; background: #38bdf8; top: 60%; left: 15%; animation-duration: 5s; transform: translateZ(200px); }
+        .p4 { width: 12px; height: 12px; background: #10b981; top: 50%; left: 85%; animation-duration: 7s; transform: translateZ(80px); }
+        .p5 { width: 20px; height: 20px; border: 3px solid #f472b6; background: transparent; border-radius: 4px; top: 30%; left: 50%; animation: spinCube 8s linear infinite; transform: translateZ(150px); }
+
+        /* --- কি-ফ্রেম অ্যানিমেশনসমূহ (5D & Dance Magic) --- */
+
+        /* স্ক্রিন ভাসমান ইফেক্ট */
+        @keyframes floatingScreen {
+            0% { transform: rotateX(10deg) rotateY(-5deg) translateY(0); }
+            100% { transform: rotateX(12deg) rotateY(-2deg) translateY(-20px); }
+        }
+
+        /* নিয়ন লোগো পালস */
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8; transform: scale(1); }
+            100% { text-shadow: 0 0 20px #38bdf8, 0 0 40px #8b5cf6, 0 0 80px #8b5cf6; transform: scale(1.05); }
+        }
+
+        /* আনন্দে লাফানো (বাউন্স) */
+        @keyframes bounceDance {
+            0% { transform: translateY(0) scaleY(0.95); }
+            100% { transform: translateY(-40px) scaleY(1.05); }
+        }
+
+        /* ছেলের হাত-পা নাড়ানো (Hip-hop style) */
+        @keyframes swingArmLeft {
+            0% { transform: rotate(20deg); }
+            100% { transform: rotate(-120deg); } /* হাত ওপরে তোলা */
+        }
+        @keyframes swingArmRight {
+            0% { transform: rotate(-20deg); }
+            100% { transform: rotate(120deg); } /* হাত ওপরে তোলা */
+        }
+        @keyframes swingLegLeft {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(30deg); }
+        }
+        @keyframes swingLegRight {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-30deg); }
+        }
+        @keyframes headBob {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+        /* মেয়ের হাত-পা নাড়ানো (Pop/Cheer style) */
+        @keyframes waveArmLeft {
+            0% { transform: rotate(-40deg); }
+            100% { transform: rotate(-160deg); }
+        }
+        @keyframes waveArmRight {
+            0% { transform: rotate(40deg); }
+            100% { transform: rotate(160deg); }
+        }
+        @keyframes headTilt {
+            0% { transform: rotate(10deg); }
+            100% { transform: rotate(-15deg); }
+        }
+
+        /* পার্টিক্যাল ফ্লোটিং ও থ্রিডি স্পিন */
+        @keyframes floatParticle {
+            0% { transform: translateY(200px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes spinCube {
+            0% { transform: translateZ(150px) rotateX(0deg) rotateY(0deg); }
+            100% { transform: translateZ(150px) rotateX(360deg) rotateY(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="academy-screen">
+        
+        <!-- পেছনের ওয়াল বা স্ক্রিন (Layer 1) -->
+        <div class="screen-backdrop">
+            <h1 class="logo-text">MH Academy</h1>
+            <div class="sub-text">Empowering Freelancers & ICT Leaders</div>
+            
+            <!-- কোডিং/গ্রাফিক্স বোঝাতে কিছু ব্যাকগ্রাউন্ড লাইন -->
+            <svg style="position: absolute; top: 40%; width: 100%; height: 50%; opacity: 0.2;" viewBox="0 0 800 200">
+                <path d="M 0 100 Q 200 50, 400 100 T 800 100" fill="none" stroke="#38bdf8" stroke-width="4" />
+                <path d="M 0 120 Q 200 170, 400 120 T 800 120" fill="none" stroke="#8b5cf6" stroke-width="4" />
+            </svg>
+        </div>
+
+        <!-- মেঝের স্টেজ (Layer 2) -->
+        <div class="stage-floor"></div>
+
+        <!-- ডান্সিং ক্যারেক্টারস (Layer 3 - Front) -->
+        <div class="dancers-container">
+            
+            <!-- ক্যারেক্টার ১: ছেলে (Boy) -->
+            <div class="character boy-char">
+                <svg viewBox="0 0 150 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 3D Gradients -->
+                    <defs>
+                        <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fcd34d" />
+                            <stop offset="100%" stop-color="#d97706" />
+                        </linearGradient>
+                        <linearGradient id="shirt-boy" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6" />
+                            <stop offset="100%" stop-color="#1e3a8a" />
+                        </linearGradient>
+                        <linearGradient id="pants-boy" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#1e293b" />
+                            <stop offset="100%" stop-color="#020617" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- বাম পা -->
+                    <rect class="leg-left" x="55" y="150" width="16" height="70" rx="8" fill="url(#pants-boy)" />
+                    <!-- ডান পা -->
+                    <rect class="leg-right" x="85" y="150" width="16" height="70" rx="8" fill="url(#pants-boy)" />
+                    
+                    <!-- জুতো -->
+                    <ellipse class="leg-left" cx="63" cy="225" rx="15" ry="8" fill="#ffffff" />
+                    <ellipse class="leg-right" cx="93" cy="225" rx="15" ry="8" fill="#ffffff" />
+
+                    <!-- বডি / টিশার্ট -->
+                    <rect x="50" y="80" width="55" height="80" rx="15" fill="url(#shirt-boy)" />
+
+                    <!-- বাম হাত -->
+                    <g class="arm-left">
+                        <rect x="30" y="80" width="16" height="60" rx="8" fill="url(#skin)" />
+                        <!-- হাতা -->
+                        <rect x="28" y="75" width="20" height="25" rx="5" fill="url(#shirt-boy)" />
+                    </g>
+                    <!-- ডান হাত -->
+                    <g class="arm-right">
+                        <rect x="110" y="80" width="16" height="60" rx="8" fill="url(#skin)" />
+                        <!-- হাতা -->
+                        <rect x="108" y="75" width="20" height="25" rx="5" fill="url(#shirt-boy)" />
+                    </g>
+
+                    <!-- মাথা ও মুখমণ্ডল -->
+                    <g class="head">
+                        <circle cx="77" cy="45" r="30" fill="url(#skin)" />
+                        <!-- চুল (Spiky) -->
+                        <path d="M 45 35 Q 75 -10 110 35 Q 90 0 60 15 Z" fill="#171717" />
+                        <path d="M 50 20 L 60 5 L 70 15 L 85 0 L 95 15 Z" fill="#171717" />
+                        <!-- চশমা (Smart ICT Boy) -->
+                        <rect x="55" y="35" width="20" height="12" rx="3" fill="none" stroke="#1e293b" stroke-width="3" />
+                        <rect x="80" y="35" width="20" height="12" rx="3" fill="none" stroke="#1e293b" stroke-width="3" />
+                        <line x1="75" y1="40" x2="80" y2="40" stroke="#1e293b" stroke-width="3" />
+                        <!-- হাসিমুখ -->
+                        <path d="M 65 55 Q 77 65 90 55" fill="none" stroke="#92400e" stroke-width="3" stroke-linecap="round" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- ক্যারেক্টার ২: মেয়ে (Girl) -->
+            <div class="character girl-char">
+                <svg viewBox="0 0 150 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="shirt-girl" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ec4899" />
+                            <stop offset="100%" stop-color="#be185d" />
+                        </linearGradient>
+                        <linearGradient id="skirt-girl" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#8b5cf6" />
+                            <stop offset="100%" stop-color="#4c1d95" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- বাম পা -->
+                    <rect class="leg-left" x="55" y="150" width="14" height="70" rx="7" fill="url(#skin)" />
+                    <!-- ডান পা -->
+                    <rect class="leg-right" x="85" y="150" width="14" height="70" rx="7" fill="url(#skin)" />
+                    
+                    <!-- জুতো -->
+                    <ellipse class="leg-left" cx="62" cy="225" rx="12" ry="8" fill="#f472b6" />
+                    <ellipse class="leg-right" cx="92" cy="225" rx="12" ry="8" fill="#f472b6" />
+
+                    <!-- স্কার্ট -->
+                    <path d="M 40 160 L 115 160 L 100 120 L 55 120 Z" fill="url(#skirt-girl)" />
+
+                    <!-- বডি / টপস -->
+                    <rect x="52" y="80" width="50" height="50" rx="15" fill="url(#shirt-girl)" />
+
+                    <!-- বাম হাত -->
+                    <g class="arm-left">
+                        <rect x="35" y="80" width="14" height="55" rx="7" fill="url(#skin)" />
+                        <rect x="33" y="75" width="18" height="20" rx="5" fill="url(#shirt-girl)" />
+                    </g>
+                    <!-- ডান হাত -->
+                    <g class="arm-right">
+                        <rect x="105" y="80" width="14" height="55" rx="7" fill="url(#skin)" />
+                        <rect x="103" y="75" width="18" height="20" rx="5" fill="url(#shirt-girl)" />
+                    </g>
+
+                    <!-- মাথা ও মুখমণ্ডল -->
+                    <g class="head">
+                        <!-- মেয়েটির চুল (পেছনের অংশ) -->
+                        <path d="M 40 40 Q 30 80 45 100 Q 55 110 60 90 Z" fill="#451a03" />
+                        <path d="M 115 40 Q 125 80 110 100 Q 100 110 95 90 Z" fill="#451a03" />
+                        
+                        <!-- মুখমণ্ডল -->
+                        <circle cx="77" cy="45" r="28" fill="url(#skin)" />
+                        
+                        <!-- চুল (সামনের অংশ) -->
+                        <path d="M 45 35 Q 77 10 110 35 Q 115 15 77 5 Q 35 15 45 35 Z" fill="#451a03" />
+                        
+                        <!-- চোখ (আনন্দে বন্ধ) -->
+                        <path d="M 60 42 Q 65 38 70 42" fill="none" stroke="#171717" stroke-width="3" stroke-linecap="round" />
+                        <path d="M 85 42 Q 90 38 95 42" fill="none" stroke="#171717" stroke-width="3" stroke-linecap="round" />
+                        <!-- হাসিমুখ -->
+                        <path d="M 68 55 Q 77 68 87 55 Z" fill="#ef4444" />
+                    </g>
+                </svg>
+            </div>
+
+        </div>
+
+        <!-- 5D ফ্লোটিং পার্টিক্যালস (Confetti/Success vibes) -->
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+
+    </div>
+
+</body>
+</html>
