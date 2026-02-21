@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Shopping Cart - ICT & Web Dev Demo</title>
+    <style>
+        /* মডার্ন ই-কমার্স ড্যাশবোর্ড থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় স্লেট ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #38bdf8; /* ই-কমার্স ব্লু */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(30,41,59,0.5) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* মেঝের লাইন (Ground) */
+        .ground-line {
+            stroke: #334155;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        /* পুরো কার্ট সিস্টেমের ডানে-বাঁয়ে মুভমেন্ট */
+        .cart-system {
+            animation: moveCart 4s ease-in-out infinite;
+        }
+
+        /* কার্টের বাস্কেটের বাউন্স/সাসপেনশন (ওপর-নিচ) */
+        .cart-basket-group {
+            transform-origin: 180px 240px;
+            animation: bounceBasket 4s linear infinite;
+        }
+
+        /* শপিং কার্টের বডি স্টাইলিং */
+        .cart-frame {
+            fill: none;
+            stroke: #38bdf8; /* ব্রাইট ব্লু */
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 4px 6px rgba(56, 189, 248, 0.3));
+        }
+
+        /* কার্টের চাকা */
+        .wheel {
+            fill: #1e293b;
+            stroke: #94a3b8;
+            stroke-width: 3;
+        }
+        
+        /* চাকার স্পোক (ঘোরা বোঝার জন্য) */
+        .wheel-spoke {
+            stroke: #cbd5e1;
+            stroke-width: 2;
+        }
+
+        /* চাকা ঘোরার অ্যানিমেশন (কার্ট চলার সময় ঘুরবে, থামলে থামবে) */
+        .spin-wheel-1 {
+            transform-origin: 150px 255px;
+            animation: spinWheels 4s ease-in-out infinite;
+        }
+        .spin-wheel-2 {
+            transform-origin: 210px 255px;
+            animation: spinWheels 4s ease-in-out infinite;
+        }
+
+        /* ড্রপিং বক্স (পার্সেল) */
+        .box-group {
+            animation: dropBox 4s cubic-bezier(0.5, 0, 0.8, 1) infinite;
+        }
+
+        .parcel-box {
+            fill: #fbbf24; /* সোনালী/অ্যাম্বার (বক্সের রং) */
+            stroke: #d97706;
+            stroke-width: 2;
+            rx: 4px; /* রাউন্ডেড বক্স */
+        }
+
+        .parcel-tape {
+            fill: #f59e0b; /* স্কচটেপের রং */
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* ১. কার্ট ডানে-বাঁয়ে যাওয়া */
+        @keyframes moveCart {
+            0% { transform: translateX(-300px); } /* ফ্রেমের বাইরে (বাঁয়ে) */
+            25%, 50% { transform: translateX(0); } /* ঠিক মাঝখানে এসে থামবে */
+            75%, 100% { transform: translateX(350px); } /* ফ্রেমের বাইরে (ডানে) চলে যাবে */
+        }
+
+        /* ২. চাকা ঘোরা (শুধু চলার সময় ঘুরবে) */
+        @keyframes spinWheels {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(360deg); }
+            50% { transform: rotate(360deg); } /* বক্স পড়ার সময় চাকা স্থির */
+            75%, 100% { transform: rotate(720deg); }
+        }
+
+        /* ৩. বক্স ওপর থেকে নিচে পড়া */
+        @keyframes dropBox {
+            0%, 25% { transform: translateY(-250px); opacity: 0; } /* ওপরে লুকানো */
+            26% { opacity: 1; transform: translateY(-200px); }
+            35% { transform: translateY(0); opacity: 1; } /* কার্টে পড়লো */
+            38% { transform: translateY(-15px); opacity: 1; } /* একটু লাফিয়ে উঠবে (রিবাউন্স) */
+            42%, 75% { transform: translateY(0); opacity: 1; } /* স্থির হয়ে বসে থাকবে */
+            76%, 100% { opacity: 0; transform: translateY(0); }
+        }
+
+        /* ৪. বক্স পড়ার ভারে কার্টের বাউন্স (সাসপেনশন ইফেক্ট) */
+        @keyframes bounceBasket {
+            0%, 34% { transform: translateY(0); }
+            35% { transform: translateY(12px); } /* বক্স পড়ার সাথে সাথে নিচে দেবে যাবে */
+            39% { transform: translateY(-4px); } /* আবার একটু ওপরে উঠবে */
+            43%, 100% { transform: translateY(0); } /* স্বাভাবিক অবস্থায় ফিরবে */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>ই-কমার্স শপিং কার্ট</h2>
+        <p>ওয়েব ডেভেলপমেন্টের অন্যতম জনপ্রিয় ক্ষেত্র ই-কমার্স! ব্যবহারকারীর কেনাকাটার অভিজ্ঞতাকে আনন্দদায়ক করতে এ ধরনের "Micro-interactions" এবং ফিজিক্স-ভিত্তিক অ্যানিমেশন দারুণ কাজ করে।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 400 300 -->
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- মেঝের লাইন (Ground) -->
+                <line x1="20" y1="270" x2="380" y2="270" class="ground-line" />
+                
+                <!-- পুরো কার্ট এবং বক্সের মুভমেন্ট গ্রুপ -->
+                <g class="cart-system">
+                    
+                    <!-- চাকাগুলো আলাদা গ্রুপে, যাতে বাস্কেট বাউন্স করলেও চাকা মেঝেতেই থাকে -->
+                    <g class="wheels-group">
+                        <!-- বাম চাকা -->
+                        <g class="spin-wheel-1">
+                            <circle cx="150" cy="255" r="12" class="wheel" />
+                            <line x1="150" y1="243" x2="150" y2="267" class="wheel-spoke" />
+                            <line x1="138" y1="255" x2="162" y2="255" class="wheel-spoke" />
+                            <circle cx="150" cy="255" r="3" fill="#cbd5e1" /> <!-- হাব -->
+                        </g>
+                        <!-- ডান চাকা -->
+                        <g class="spin-wheel-2">
+                            <circle cx="210" cy="255" r="12" class="wheel" />
+                            <line x1="210" y1="243" x2="210" y2="267" class="wheel-spoke" />
+                            <line x1="198" y1="255" x2="222" y2="255" class="wheel-spoke" />
+                            <circle cx="210" cy="255" r="3" fill="#cbd5e1" /> <!-- হাব -->
+                        </g>
+                    </g>
+
+                    <!-- বাস্কেট এবং বক্স (বক্স পড়লে এই পুরো অংশটি বাউন্স করবে) -->
+                    <g class="cart-basket-group">
+                        
+                        <!-- ড্রপিং বক্স (পার্সেল) - এটি বাস্কেটের ভেতরে থাকবে -->
+                        <g class="box-group">
+                            <rect x="160" y="180" width="45" height="45" class="parcel-box" />
+                            <!-- বক্সের স্কচটেপ -->
+                            <rect x="178" y="180" width="9" height="45" class="parcel-tape" />
+                            <!-- বক্সের ওপরের ফ্ল্যাপ/দাগ -->
+                            <line x1="160" y1="195" x2="205" y2="195" stroke="#d97706" stroke-width="1.5" stroke-dasharray="2 2" />
+                        </g>
+
+                        <!-- কার্টের মূল ফ্রেম (Basket Frame) -->
+                        <!-- M (Move), L (Line) দিয়ে কার্টের আকৃতি আঁকা হয়েছে -->
+                        <path class="cart-frame" d="M 100 140 L 120 140 L 140 240 L 220 240 L 250 150 L 125 150" />
+                        
+                        <!-- কার্টের ভেতরের গ্রিড লাইন (অপশনাল, ডিটেইলিংয়ের জন্য) -->
+                        <line x1="145" y1="220" x2="230" y2="220" stroke="#38bdf8" stroke-width="2" />
+                        <line x1="135" y1="190" x2="240" y2="190" stroke="#38bdf8" stroke-width="2" />
+                        <line x1="165" y1="150" x2="165" y2="240" stroke="#38bdf8" stroke-width="2" />
+                        <line x1="195" y1="150" x2="195" y2="240" stroke="#38bdf8" stroke-width="2" />
+                        
+                        <!-- কার্টের হাতলের গ্রিপ (Handle grip) -->
+                        <line x1="100" y1="140" x2="115" y2="140" stroke="#ef4444" stroke-width="8" stroke-linecap="round" />
+                        
+                    </g>
+
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
