@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কৃত্রিম বুদ্ধিমত্তা (AI) অ্যানিমেশন - ICT Demo</title>
+    <style>
+        /* মডার্ন ডার্ক সায়েন্স-ফিকশন থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #020617; /* খুব গাঢ় নীল/কালো */
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(14, 165, 233, 0.2); /* হালকা সায়ান বর্ডার */
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #0ea5e9; /* সায়ান / টেক ব্লু */
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 420px;
+            line-height: 1.6;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* মানুষের মাথার প্রোফাইল (Outline) */
+        .head-outline {
+            fill: none;
+            stroke: #1e293b; /* গাঢ় স্লেট রং */
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ভেতরের ব্রেইনের হালকা গ্লো (Background Glow) */
+        .brain-glow {
+            fill: url(#cyan-glow);
+            opacity: 0.4;
+            animation: breathe 4s ease-in-out infinite alternate;
+        }
+
+        /* সার্কিট বোর্ডের লাইন (Pathways) */
+        .circuit-path {
+            fill: none;
+            stroke: #0ea5e9; /* সায়ান রং */
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            /* লাইনগুলো আঁকার অ্যানিমেশন */
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawCircuit 3s ease-out infinite alternate;
+        }
+
+        /* ভিন্ন ভিন্ন লাইনের অ্যানিমেশন ডিলে */
+        .path-1 { animation-delay: 0s; }
+        .path-2 { animation-delay: 0.5s; }
+        .path-3 { animation-delay: 1s; }
+        .path-4 { animation-delay: 1.5s; stroke: #8b5cf6; /* একটি পার্পল লাইন */ }
+
+        /* ডেটা প্রসেসিং নোড (Nodes) */
+        .node {
+            fill: #ffffff;
+            stroke: #0ea5e9;
+            stroke-width: 2;
+            filter: drop-shadow(0 0 5px #0ea5e9);
+            animation: pulseNode 2s infinite alternate;
+        }
+        
+        .node-purple {
+            stroke: #8b5cf6;
+            filter: drop-shadow(0 0 5px #8b5cf6);
+            animation-delay: 1s;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* সার্কিট লাইন আঁকা */
+        @keyframes drawCircuit {
+            0%, 20% { stroke-dashoffset: 200; opacity: 0; }
+            50% { opacity: 1; }
+            80%, 100% { stroke-dashoffset: 0; opacity: 1; }
+        }
+
+        /* নোডের স্পন্দন বা গ্লো */
+        @keyframes pulseNode {
+            0% { r: 3; opacity: 0.6; filter: drop-shadow(0 0 2px #0ea5e9); }
+            100% { r: 6; opacity: 1; filter: drop-shadow(0 0 10px #0ea5e9); }
+        }
+
+        /* ব্রেইনের শ্বাস-প্রশ্বাসের মতো গ্লো (Breathe Effect) */
+        @keyframes breathe {
+            0% { opacity: 0.2; transform: scale(0.98); transform-origin: center; }
+            100% { opacity: 0.5; transform: scale(1.02); transform-origin: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>কৃত্রিম বুদ্ধিমত্তা (AI)</h2>
+        <p>ভবিষ্যতের প্রযুক্তি! মানুষের মস্তিষ্কের নিউরন যেভাবে কাজ করে, ঠিক সেভাবেই আর্টিফিশিয়াল ইন্টেলিজেন্সের নিউরাল নেটওয়ার্ক ডেটা প্রসেস করে থাকে।</p>
+        
+        <div class="svg-container">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- ব্রেইনের ভেতরের গ্লো এর জন্য রেডিয়াল গ্রেডিয়েন্ট -->
+                    <radialGradient id="cyan-glow" cx="50%" cy="40%" r="50%">
+                        <stop offset="0%" stop-color="#0ea5e9" />
+                        <stop offset="100%" stop-color="rgba(14, 165, 233, 0)" />
+                    </radialGradient>
+                </defs>
+
+                <!-- মাথার প্রোফাইলের ভেতরে গ্লো -->
+                <!-- x, y, width, height দিয়ে মাথার পেছনের অংশে সেট করা হয়েছে -->
+                <ellipse cx="160" cy="120" rx="60" ry="70" class="brain-glow" />
+
+                <!-- মানুষের মাথার প্রোফাইল (ডান দিকে ফেরানো) -->
+                <!-- ঘাড় থেকে শুরু করে মাথার পেছন, ওপর, কপাল, নাক, ঠোঁট হয়ে থুতনি -->
+                <path class="head-outline" 
+                      d="M 100 280 
+                         C 100 230, 90 200, 110 160 
+                         C 120 120, 160 50, 210 60 
+                         C 250 70, 250 120, 240 140 
+                         C 230 160, 250 170, 250 180 
+                         C 250 190, 235 195, 235 200 
+                         C 235 205, 245 210, 240 220 
+                         C 230 230, 200 240, 180 230 
+                         C 170 240, 160 280, 160 280" />
+
+                <!-- সার্কিট বোর্ডের লাইনসমূহ (Neural Pathways) -->
+                <!-- Path 1 (Top part) -->
+                <path class="circuit-path path-1" d="M 140 100 L 160 80 L 190 80 L 200 95 L 220 95" />
+                <!-- Path 2 (Middle part) -->
+                <path class="circuit-path path-2" d="M 130 140 L 150 120 L 180 120 L 190 140 L 220 140" />
+                <!-- Path 3 (Bottom/Neck part) -->
+                <path class="circuit-path path-3" d="M 120 180 L 140 160 L 170 160 L 180 180 L 210 180 L 220 170" />
+                <!-- Path 4 (Diagonal Cross) -->
+                <path class="circuit-path path-4" d="M 150 160 L 170 130 L 200 130 L 210 110" />
+
+                <!-- ডেটা প্রসেসিং নোডস (Nodes/Intersections) -->
+                <!-- Path 1 Nodes -->
+                <circle cx="140" cy="100" class="node" />
+                <circle cx="160" cy="80" class="node" />
+                <circle cx="190" cy="80" class="node" />
+                <circle cx="200" cy="95" class="node" />
+                
+                <!-- Path 2 Nodes -->
+                <circle cx="130" cy="140" class="node" />
+                <circle cx="150" cy="120" class="node" />
+                <circle cx="180" cy="120" class="node" />
+                <circle cx="220" cy="140" class="node" />
+                
+                <!-- Path 3 Nodes -->
+                <circle cx="120" cy="180" class="node" />
+                <circle cx="170" cy="160" class="node" />
+                <circle cx="180" cy="180" class="node" />
+                <circle cx="210" cy="180" class="node" />
+                
+                <!-- Path 4 Nodes (Purple) -->
+                <circle cx="170" cy="130" class="node node-purple" />
+                <circle cx="200" cy="130" class="node node-purple" />
+                <circle cx="210" cy="110" class="node node-purple" />
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
