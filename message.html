@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাকসেসফুল মেসেজ অ্যানিমেশন - ICT & Web Dev Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় স্লেট ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #10b981; /* সাকসেস গ্রিন রং */
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 380px;
+            line-height: 1.6;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 350px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ড্যাশ লাইনের (উড্ডয়ন পথ) স্টাইলিং */
+        .flight-path {
+            fill: none;
+            stroke: #3b82f6; /* নীল রঙের ড্যাশ লাইন */
+            stroke-width: 2;
+            stroke-dasharray: 8 6; /* ড্যাশের আকার এবং ফাঁকা জায়গা */
+            opacity: 0.4;
+            /* ড্যাশ লাইনকে চলমান মনে হওয়ার অ্যানিমেশন */
+            animation: moveDash 20s linear infinite;
+        }
+
+        @keyframes moveDash {
+            from { stroke-dashoffset: 200; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* কাগজের বিমান (Paper Plane) স্টাইলিং */
+        .paper-plane {
+            fill: #38bdf8; /* উজ্জ্বল স্কাই ব্লু */
+            filter: drop-shadow(0px 4px 6px rgba(56, 189, 248, 0.4)); /* হালকা গ্লো/শ্যাডো */
+        }
+        
+        /* কাগজের বিমানের গাঢ় অংশ (3D বোঝাতে) */
+        .plane-shadow {
+            fill: #0284c7;
+        }
+
+        /* ছোট মেঘের অ্যানিমেশন (আকাশের ফিল দেওয়ার জন্য) */
+        .cloud {
+            fill: rgba(255, 255, 255, 0.05);
+            animation: floatCloud 8s ease-in-out infinite alternate;
+        }
+
+        .cloud-2 {
+            animation-delay: -4s;
+            animation-duration: 12s;
+        }
+
+        @keyframes floatCloud {
+            from { transform: translateX(-10px); }
+            to { transform: translateX(10px); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>মেসেজ সফলভাবে পাঠানো হয়েছে!</h2>
+        <p>ইউজারকে একটি সুন্দর ভিজ্যুয়াল ফিডব্যাক দেওয়া ভালো UI/UX ডিজাইনের প্রধান শর্ত। এটি ফ্রিল্যান্সিংয়ে আপনাকে অন্যদের চেয়ে এগিয়ে রাখবে।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 350 200 সেট করা হয়েছে -->
+            <svg viewBox="0 0 350 200" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- ব্যাকগ্রাউন্ডের মেঘ -->
+                <path class="cloud" d="M 50 160 Q 60 140 80 150 Q 100 130 110 160 Z" />
+                <path class="cloud cloud-2" d="M 280 60 Q 300 40 310 70 Q 330 60 320 80 Z" />
+
+                <!-- বিমানের ওড়ার পথ (Figure-Eight / Infinity Loop) -->
+                <!-- id="path" দেওয়া হয়েছে যাতে বিমান একে অনুসরণ করতে পারে -->
+                <path id="infinity-path" class="flight-path" 
+                      d="M 175 100 
+                         C 250 10, 330 10, 330 100 
+                         C 330 190, 250 190, 175 100 
+                         C 100 10, 20 10, 20 100 
+                         C 20 190, 100 190, 175 100 Z" />
+
+                <!-- কাগজের বিমান গ্রুপ -->
+                <g>
+                    <!-- বিমানের শেপ (Vector Path) -->
+                    <!-- কেন্দ্র (0,0) তে আঁকা হয়েছে যাতে পাথ বরাবর ঠিকমতো ঘোরে -->
+                    <g transform="scale(1.2)">
+                        <path class="paper-plane" d="M -12 -10 L 16 0 L -12 10 L -6 0 Z" />
+                        <!-- নিচের ডানার গাঢ় অংশ (3D ইফেক্ট) -->
+                        <path class="plane-shadow" d="M -6 0 L 16 0 L -12 10 Z" />
+                    </g>
+                    
+                    <!-- SVG অ্যানিমেশন: বিমানটি উপরের 'infinity-path' অনুসরণ করে চলবে -->
+                    <!-- rotate="auto" এর কারণে বিমানটি বাঁক নেওয়ার সময় নিজে থেকেই ঘুরে যাবে -->
+                    <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+                        <mpath href="#infinity-path"/>
+                    </animateMotion>
+                </g>
+                
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
