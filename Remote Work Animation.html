@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Work & Freelancing - ICT Demo</title>
+    <style>
+        /* মডার্ন ডার্ক ওয়ার্কস্পেস থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e2f; /* গাঢ় ওয়ার্কস্পেস ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.15); /* হালকা ওয়ার্ম বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #f59e0b; /* কফি/ওয়ার্ম অ্যাম্বার রং */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* টেবিলের লাইন */
+        .desk-line {
+            stroke: #475569;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        /* কফির মগ এবং ধোঁয়া */
+        .coffee-mug {
+            fill: #0f172a;
+            stroke: #f59e0b;
+            stroke-width: 3;
+        }
+
+        .mug-handle {
+            fill: none;
+            stroke: #f59e0b;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        /* ধোঁয়া (Steam) অ্যানিমেশন */
+        .steam {
+            fill: none;
+            stroke: #d4d4d8;
+            stroke-width: 3;
+            stroke-linecap: round;
+            opacity: 0;
+            animation: riseSteam 4s ease-in-out infinite;
+        }
+
+        /* আলাদা ধোঁয়ার লাইনের জন্য ডিলে */
+        .steam-1 { animation-delay: 0s; }
+        .steam-2 { animation-delay: 1.5s; }
+        .steam-3 { animation-delay: 0.7s; }
+
+        /* স্মার্টফোন এবং স্ক্রিন */
+        .phone-body {
+            fill: #27272a;
+            stroke: #52525b;
+            stroke-width: 2;
+            rx: 12px; /* রাউন্ডেড কর্নার */
+        }
+
+        .phone-screen {
+            fill: #18181b; /* ডিফল্ট কালো স্ক্রিন */
+            rx: 8px;
+            /* স্ক্রিন জ্বলে ওঠার অ্যানিমেশন */
+            animation: screenLightUp 6s infinite;
+        }
+
+        /* নোটিফিকেশন বেল এবং ব্যাজ */
+        .notification-bubble {
+            fill: #ffffff;
+            rx: 12px;
+            opacity: 0;
+            transform-origin: 260px 180px;
+            /* স্ক্রিন অন হলে বাবলটি পপ-আপ হবে */
+            animation: popBubble 6s infinite;
+        }
+
+        .bell-icon {
+            fill: #f59e0b;
+            transform-origin: 260px 175px; /* বেলের ওপরের অংশ থেকে দুলবে */
+            /* স্ক্রিন অন হলে বেল বাজবে */
+            animation: ringBell 6s infinite;
+        }
+
+        .badge {
+            fill: #ef4444; /* লাল নোটিফিকেশন ডট */
+            opacity: 0;
+            animation: popBadge 6s infinite;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* কফির ধোঁয়া ওপরে ওঠা এবং মিলিয়ে যাওয়া */
+        @keyframes riseSteam {
+            0% { transform: translateY(10px) scaleX(0.9); opacity: 0; }
+            40% { opacity: 0.6; }
+            100% { transform: translateY(-40px) scaleX(1.1); opacity: 0; }
+        }
+
+        /* ফোনের স্ক্রিন জ্বলে ওঠা (Light up effect) */
+        @keyframes screenLightUp {
+            0%, 20% { fill: #18181b; filter: drop-shadow(0 0 0px transparent); }
+            25%, 75% { fill: #38bdf8; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4)); } /* উজ্জ্বল নীল আলো */
+            80%, 100% { fill: #18181b; filter: drop-shadow(0 0 0px transparent); }
+        }
+
+        /* নোটিফিকেশন বাবল পপ-আপ হওয়া */
+        @keyframes popBubble {
+            0%, 20% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            25%, 75% { opacity: 1; transform: scale(1) translateY(0); }
+            80%, 100% { opacity: 0; transform: scale(0.8) translateY(10px); }
+        }
+
+        /* বেল রিং হওয়া (ডানে-বাঁয়ে দোলা) */
+        @keyframes ringBell {
+            0%, 25% { transform: rotate(0deg); }
+            30% { transform: rotate(15deg); }
+            35% { transform: rotate(-15deg); }
+            40% { transform: rotate(10deg); }
+            45% { transform: rotate(-10deg); }
+            50%, 100% { transform: rotate(0deg); }
+        }
+
+        /* লাল ব্যাজ পপ হওয়া */
+        @keyframes popBadge {
+            0%, 35% { opacity: 0; transform: scale(0); transform-origin: 270px 170px; }
+            40%, 75% { opacity: 1; transform: scale(1); transform-origin: 270px 170px; }
+            80%, 100% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>রিমোট ওয়ার্ক ও ফ্রিল্যান্সিং</h2>
+        <p>স্বাধীনতা এবং স্বাচ্ছন্দ্য! এক কাপ কফি আর একটি স্মার্টফোন বা ল্যাপটপ দিয়েই শুরু হতে পারে আপনার ফ্রিল্যান্সিং ক্যারিয়ার। স্ক্রিনে আসা নতুন কাজের নোটিফিকেশনটি লক্ষ্য করুন।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 400 300 -->
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- টেবিলের উপরিভাগ (Desk Line) -->
+                <line x1="40" y1="260" x2="360" y2="260" class="desk-line" />
+
+                <!-- কফির মগ অংশ (বাম দিকে) -->
+                <g transform="translate(80, 160)">
+                    <!-- মগের হাতল (Handle) -->
+                    <!-- C (Cubic Bezier) কার্ভ ব্যবহার করে হাতল তৈরি -->
+                    <path class="mug-handle" d="M 60 30 C 90 30, 90 70, 60 70" />
+                    <!-- মগের মূল বডি -->
+                    <rect class="coffee-mug" x="0" y="20" width="60" height="80" rx="8" />
+                    <!-- মগের ওপরের ডেকোরেশন লাইন -->
+                    <line x1="10" y1="80" x2="50" y2="80" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+                    <line x1="15" y1="88" x2="45" y2="88" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+                </g>
+
+                <!-- কফির ধোঁয়া (Steam Waves) -->
+                <!-- Q (Quadratic Bezier) এবং T (Smooth curve) দিয়ে ঢেউ খেলানো ধোঁয়া -->
+                <g transform="translate(80, 150)">
+                    <path class="steam steam-1" d="M 20 20 Q 10 5, 20 -10 T 20 -40" />
+                    <path class="steam steam-2" d="M 35 20 Q 45 5, 35 -10 T 35 -40" />
+                    <path class="steam steam-3" d="M 50 20 Q 40 5, 50 -10 T 50 -40" />
+                </g>
+
+                <!-- স্মার্টফোন অংশ (ডান দিকে) -->
+                <g transform="translate(200, 100)">
+                    <!-- ফোনের বাইরের বডি -->
+                    <rect class="phone-body" x="0" y="0" width="80" height="160" />
+                    <!-- ফোনের স্ক্রিন (যেটি জ্বলে উঠবে) -->
+                    <rect class="phone-screen" x="5" y="10" width="70" height="140" />
+                    <!-- ফোনের স্পিকার নচ -->
+                    <line x1="30" y1="5" x2="50" y2="5" stroke="#71717a" stroke-width="2" stroke-linecap="round" />
+                    
+                    <!-- নোটিফিকেশন বাবল (স্ক্রিনের ভেতরে) -->
+                    <rect class="notification-bubble" x="15" y="50" width="50" height="50" />
+                    
+                    <!-- নোটিফিকেশন বেল আইকন -->
+                    <!-- বেলটি বাবলের মাঝখানে থাকবে -->
+                    <g transform="translate(40, 75)">
+                        <path class="bell-icon" d="M -10 10 Q -10 -5, 0 -10 Q 10 -5, 10 10 L 15 15 L -15 15 Z" />
+                        <!-- বেলের নিচের ছোট দুল -->
+                        <circle cx="0" cy="18" r="3" class="bell-icon" style="animation: none;" />
+                        <!-- লাল ব্যাজ (Unread Notification Dot) -->
+                        <circle cx="10" cy="-5" r="4" class="badge" />
+                    </g>
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
