@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH Academy - Empowering Future Leaders</title>
+    <style>
+        /* মডার্ন ডার্ক 5D স্পেস থিম */
+        :root {
+            --primary: #38bdf8; /* স্কাই ব্লু */
+            --secondary: #8b5cf6; /* পার্পেল */
+            --accent: #f59e0b; /* সোনালী */
+            --dark: #020617; /* ডিপ নেভি */
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(56, 189, 248, 0.2);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        /* 5D ভাসমান ব্যাকগ্রাউন্ড পার্টিকেলস */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            transform-style: preserve-3d;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateZ(-100px) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px) translateZ(100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* হেডার / ব্যানার সেকশন */
+        header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            transform-style: preserve-3d;
+            animation: popIn 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .logo-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+            transform: translateZ(50px); /* 3D pop effect */
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            transform: translateZ(30px);
+        }
+
+        /* প্রোফাইল এবং উদ্দেশ্য সেকশন (Glassmorphism 3D Card) */
+        .profile-section {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-section:hover {
+            transform: rotateX(5deg) rotateY(-5deg) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(56, 189, 248, 0.1);
+        }
+
+        .profile-image-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+            transform: translateZ(40px);
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        .teacher-name {
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 0 0 5px 0;
+            transform: translateZ(30px);
+        }
+
+        .teacher-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            transform: translateZ(25px);
+        }
+
+        .mission-text {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 750px;
+            transform: translateZ(20px);
+        }
+
+        /* প্রজেক্টস গ্রিড (24 Files) */
+        .projects-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
+        }
+
+        /* 3D প্রজেক্ট কার্ড */
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        /* কার্ড হোভার 5D ইফেক্ট */
+        .card:hover {
+            transform: translateY(-15px) rotateX(10deg) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.2);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            transition: color 0.4s;
+        }
+
+        .card:hover .card-number {
+            color: rgba(56, 189, 248, 0.2);
+        }
+
+        .card-category {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            transform: translateZ(20px);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+            transform: translateZ(30px);
+        }
+
+        /* ফুটার */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
+        }
+
+        /* অ্যানিমেশন */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateZ(-200px); }
+            100% { opacity: 1; transform: scale(1) translateZ(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 5D Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <h1 class="logo-title">MH Academy</h1>
+        <div class="tagline">Tech • Economics • Freelancing • Innovation</div>
+    </header>
+
+    <!-- প্রোফাইল এবং উদ্দেশ্য সেকশন -->
+    <div class="profile-section">
+        <!-- আপনি চাইলে এখানে <img> ট্যাগ দিয়ে আপনার ছবি যুক্ত করতে পারেন -->
+        <div class="profile-image-placeholder">MH</div>
+        <h2 class="teacher-name">মোঃ মঞ্জুরুল হক</h2>
+        <div class="teacher-title">প্রভাষক (অর্থনীতি) | জিয়াউদ্দিন স্কুল এন্ড কলেজ, কিশোরগঞ্জ</div>
+        
+        <p class="mission-text">
+            <strong>আমার উদ্দেশ্য:</strong> শিক্ষার্থীদের অর্থনীতির জটিল বিষয়গুলো সহজ ও আনন্দদায়কভাবে বোঝানোর পাশাপাশি আইসিটি, এআই (AI) এবং ডিজিটাল প্রযুক্তির সাথে তাদের পরিচয় করানো। আমি বিশ্বাস করি, সঠিক নির্দেশনার মাধ্যমে আমাদের ছাত্র-ছাত্রীরা ফ্রিল্যান্সিং ও অনলাইন প্ল্যাটফর্ম ব্যবহার করে শুধু নিজেদের আর্থিক স্বাবলম্বীতাই আনবে না, বরং একটি আধুনিক ও স্মার্ট বাংলাদেশ গড়ায় নেতৃত্ব দেবে। 
+            <br><br>
+            <em>"প্রযুক্তির সঠিক ব্যবহারই পারে আমাদের জীবনকে আরও সমৃদ্ধ করতে।"</em>
+        </p>
+    </div>
+
+    <!-- 24 Projects Grid -->
+    <div class="projects-container">
+        <h2 class="section-title">আমার তৈরি ২৪টি মেগা প্রজেক্ট</h2>
+        
+        <div class="grid">
+            <!-- Project 1 -->
+            <a href="spinner.html" class="card">
+                <span class="card-number">01</span>
+                <span class="card-category">UI / Web Dev</span>
+                <h3 class="card-title">মডার্ন লোডিং স্পিনার</h3>
+            </a>
+            <!-- Project 2 -->
+            <a href="responsive.html" class="card">
+                <span class="card-number">02</span>
+                <span class="card-category">UI / Web Dev</span>
+                <h3 class="card-title">রেসপন্সিভ ডিজাইন ট্রান্সফরমেশন</h3>
+            </a>
+            <!-- Project 3 -->
+            <a href="hero_coding.html" class="card">
+                <span class="card-number">03</span>
+                <span class="card-category">UI / Web Dev</span>
+                <h3 class="card-title">হিরো সেকশন কোডিং অ্যানিমেশন</h3>
+            </a>
+            <!-- Project 4 -->
+            <a href="cta_hover.html" class="card">
+                <span class="card-number">04</span>
+                <span class="card-category">UI / Web Dev</span>
+                <h3 class="card-title">কল-টু-অ্যাকশন হোভার ইফেক্ট</h3>
+            </a>
+            <!-- Project 5 -->
+            <a href="message_sent.html" class="card">
+                <span class="card-number">05</span>
+                <span class="card-category">UI / Web Dev</span>
+                <h3 class="card-title">সাকসেসফুল মেসেজ (Email)</h3>
+            </a>
+
+            <!-- Project 6 -->
+            <a href="economics_graph.html" class="card">
+                <span class="card-number">06</span>
+                <span class="card-category">Economics / Data</span>
+                <h3 class="card-title">সাপ্লাই এবং ডিমান্ড কার্ভ (ভারসাম্য)</h3>
+            </a>
+            <!-- Project 7 -->
+            <a href="economic_growth.html" class="card">
+                <span class="card-number">07</span>
+                <span class="card-category">Economics / Data</span>
+                <h3 class="card-title">ইকোনমিক গ্রোথ বা প্রবৃদ্ধি চার্ট</h3>
+            </a>
+            <!-- Project 8 -->
+            <a href="crypto_coin.html" class="card">
+                <span class="card-number">08</span>
+                <span class="card-category">Economics / FinTech</span>
+                <h3 class="card-title">ডিজিটাল কারেন্সি বা ক্রিপ্টো কয়েন</h3>
+            </a>
+            <!-- Project 9 -->
+            <a href="global_trade.html" class="card">
+                <span class="card-number">09</span>
+                <span class="card-category">Economics / Networking</span>
+                <h3 class="card-title">গ্লোবাল ট্রেড নেটওয়ার্ক</h3>
+            </a>
+            <!-- Project 10 -->
+            <a href="piggy_bank.html" class="card">
+                <span class="card-number">10</span>
+                <span class="card-category">Finance / Savings</span>
+                <h3 class="card-title">পার্সোনাল ফাইন্যান্স (পিগি ব্যাংক)</h3>
+            </a>
+
+            <!-- Project 11 -->
+            <a href="ai_brain.html" class="card">
+                <span class="card-number">11</span>
+                <span class="card-category">ICT / AI</span>
+                <h3 class="card-title">কৃত্রিম বুদ্ধিমত্তা (Artificial Intelligence)</h3>
+            </a>
+            <!-- Project 12 -->
+            <a href="cloud_computing.html" class="card">
+                <span class="card-number">12</span>
+                <span class="card-category">ICT / Cloud</span>
+                <h3 class="card-title">ক্লাউড কম্পিউটিং (Data Sync)</h3>
+            </a>
+            <!-- Project 13 -->
+            <a href="cyber_security.html" class="card">
+                <span class="card-number">13</span>
+                <span class="card-category">ICT / Security</span>
+                <h3 class="card-title">সাইবার সিকিউরিটি শিল্ড</h3>
+            </a>
+            <!-- Project 14 -->
+            <a href="blockchain.html" class="card">
+                <span class="card-number">14</span>
+                <span class="card-category">ICT / Web3</span>
+                <h3 class="card-title">ব্লকচেইন টেকনোলজি (Nodes)</h3>
+            </a>
+            <!-- Project 15 -->
+            <a href="smart_city.html" class="card">
+                <span class="card-number">15</span>
+                <span class="card-category">ICT / IoT</span>
+                <h3 class="card-title">স্মার্ট সিটি (Internet of Things)</h3>
+            </a>
+
+            <!-- Project 16 -->
+            <a href="online_learning.html" class="card">
+                <span class="card-number">16</span>
+                <span class="card-category">Education / E-Learning</span>
+                <h3 class="card-title">অনলাইন লার্নিং (গ্রাজুয়েশন)</h3>
+            </a>
+            <!-- Project 17 -->
+            <a href="seo_analytics.html" class="card">
+                <span class="card-number">17</span>
+                <span class="card-category">Freelancing / SEO</span>
+                <h3 class="card-title">এসইও এবং অ্যানালিটিক্স</h3>
+            </a>
+            <!-- Project 18 -->
+            <a href="remote_work.html" class="card">
+                <span class="card-number">18</span>
+                <span class="card-category">Freelancing / Lifestyle</span>
+                <h3 class="card-title">রিমোট ওয়ার্ক বা ফ্রিল্যান্সিং</h3>
+            </a>
+            <!-- Project 19 -->
+            <a href="time_management.html" class="card">
+                <span class="card-number">19</span>
+                <span class="card-category">Freelancing / Productivity</span>
+                <h3 class="card-title">টাইম ম্যানেজমেন্ট (Pomodoro)</h3>
+            </a>
+            <!-- Project 20 -->
+            <a href="ecommerce_cart.html" class="card">
+                <span class="card-number">20</span>
+                <span class="card-category">Freelancing / E-commerce</span>
+                <h3 class="card-title">ই-কমার্স শপিং কার্ট</h3>
+            </a>
+
+            <!-- Project 21 (Special) -->
+            <a href="flower_bloom.html" class="card" style="border-color: #ec4899;">
+                <span class="card-number">21</span>
+                <span class="card-category" style="color:#ec4899;">UI/UX Magic</span>
+                <h3 class="card-title">ইন্টারেক্টিভ ফ্লাওয়ার ব্লুম</h3>
+            </a>
+            <!-- Project 22 (Special) -->
+            <a href="kung_fu_fight.html" class="card" style="border-color: #ef4444;">
+                <span class="card-number">22</span>
+                <span class="card-category" style="color:#ef4444;">Cyber Dojo</span>
+                <h3 class="card-title">কুংফু ফাইট: Slash (/) vs Zero (0)</h3>
+            </a>
+            <!-- Project 23 (Special) -->
+            <a href="chanachur_magic.html" class="card" style="border-color: #f59e0b;">
+                <span class="card-number">23</span>
+                <span class="card-category" style="color:#f59e0b;">CSS Magic</span>
+                <h3 class="card-title">রুচি চানাচুর টর্নেডো ম্যাজিক</h3>
+            </a>
+            <!-- Project 24 (Special) -->
+            <a href="mh_academy_dance.html" class="card" style="border-color: #8b5cf6;">
+                <span class="card-number">24</span>
+                <span class="card-category" style="color:#8b5cf6;">Academy Special</span>
+                <h3 class="card-title">MH Academy 5D ডান্সিং</h3>
+            </a>
+
+        </div>
+    </div>
+
+    <footer>
+        <div style="color: var(--primary); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px;">MH Academy</div>
+        <div style="color: #94a3b8; font-size: 0.9rem;">© ২০২৬ | ডিজাইন্ড বাই এআই এবং মোঃ মঞ্জুরুল হক স্যার</div>
+        <div style="color: #64748b; font-size: 0.8rem; margin-top: 5px;">জিয়াউদ্দিন স্কুল এন্ড কলেজ, কিশোরগঞ্জ</div>
+    </footer>
+
+    <!-- পার্টিকেলস জেনারেট করার জন্য ছোট্ট জাভাস্ক্রিপ্ট -->
+    <script>
+        const particlesContainer = document.getElementById('particles');
+        const colors = ['#38bdf8', '#8b5cf6', '#f59e0b', '#ffffff'];
+        
+        for(let i = 0; i < 30; i++) {
+            let particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random size, position, color and animation duration
+            let size = Math.random() * 8 + 2;
+            let left = Math.random() * 100;
+            let duration = Math.random() * 20 + 10;
+            let delay = Math.random() * 10;
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}vw`;
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size*2}px ${color}`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `-${delay}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
