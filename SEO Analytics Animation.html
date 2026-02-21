@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO & Search Analytics - ICT & Freelancing Demo</title>
+    <style>
+        /* মডার্ন ডার্ক অ্যানালিটিক্স থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় স্লেট/নীল ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(16, 185, 129, 0.15); /* হালকা সবুজ বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #10b981; /* এসইও গ্রোথ বোঝাতে এমারল্ড গ্রিন */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ব্যাকগ্রাউন্ড গ্রিড লাইন */
+        .grid-line {
+            stroke: #334155;
+            stroke-width: 1;
+            stroke-dasharray: 4 4;
+        }
+
+        /* গ্রোথ চার্ট (Line Graph) */
+        .growth-line {
+            fill: none;
+            stroke: #10b981; /* উজ্জ্বল সবুজ */
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 4px 6px rgba(16, 185, 129, 0.4));
+            /* লাইনটি এঁকে ওঠার অ্যানিমেশন */
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawGraph 3s ease-out forwards, floatGraph 4s ease-in-out infinite 3s;
+        }
+
+        /* চার্টের নিচের ফিল (Area Fill) */
+        .growth-area {
+            fill: url(#area-gradient);
+            opacity: 0;
+            /* লাইন আঁকা শেষ হলে এটি ফেড-ইন হবে */
+            animation: fadeInArea 2s ease-out 1.5s forwards;
+        }
+
+        /* ডেটা পয়েন্ট (নোড) */
+        .data-node {
+            fill: #ffffff;
+            stroke: #10b981;
+            stroke-width: 2;
+            opacity: 0;
+            animation: popNode 0.5s ease-out forwards;
+        }
+        
+        .node-1 { animation-delay: 1.0s; }
+        .node-2 { animation-delay: 1.5s; }
+        .node-3 { animation-delay: 2.0s; }
+        .node-4 { animation-delay: 2.5s; }
+
+        /* সার্চ বার স্টাইলিং */
+        .search-bar {
+            fill: #1e293b;
+            stroke: #475569;
+            stroke-width: 2;
+            rx: 20px; /* রাউন্ডেড শেপ */
+        }
+        
+        .search-text {
+            fill: #94a3b8;
+            font-size: 14px;
+            font-family: monospace;
+            /* টাইপিং ইফেক্ট */
+            clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+            animation: typeText 3s steps(20) infinite alternate;
+        }
+
+        /* ম্যাগনিফাইং গ্লাস (সার্চ আইকন) অ্যানিমেশন */
+        .scanner-group {
+            /* স্ক্যান করার জন্য ডানে-বাঁয়ে মুভমেন্ট */
+            animation: scanSearch 4s ease-in-out infinite;
+        }
+
+        .mag-glass {
+            fill: rgba(56, 189, 248, 0.1);
+            stroke: #38bdf8;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.5));
+        }
+
+        .mag-handle {
+            stroke: #38bdf8;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+
+        /* গ্রাফ ড্র হওয়া */
+        @keyframes drawGraph {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* গ্রাফের নিচের কালার ফেড ইন হওয়া */
+        @keyframes fadeInArea {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 0.6; transform: translateY(0); }
+        }
+
+        /* ডেটা পয়েন্ট পপ আপ */
+        @keyframes popNode {
+            0% { opacity: 0; transform: scale(0); transform-origin: center; }
+            70% { opacity: 1; transform: scale(1.5); transform-origin: center; }
+            100% { opacity: 1; transform: scale(1); transform-origin: center; }
+        }
+
+        /* ম্যাগনিফাইং গ্লাসের স্ক্যানিং মুভমেন্ট */
+        @keyframes scanSearch {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(200px); } /* ডান দিকে যাবে এবং ফিরে আসবে */
+        }
+
+        /* সার্চ টেক্সট টাইপিং ইফেক্ট */
+        @keyframes typeText {
+            0%, 20% { clip-path: polygon(0 0, 0 100%, 0 100%, 0 0); }
+            80%, 100% { clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0); }
+        }
+
+        /* গ্রাফের হালকা ভাসা (Flowing effect) */
+        @keyframes floatGraph {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>এসইও এবং অ্যানালিটিক্স</h2>
+        <p>সার্চ ইঞ্জিন অপ্টিমাইজেশন (SEO) এর ম্যাজিক! সঠিক কিওয়ার্ড সার্চের মাধ্যমে কীভাবে একটি ওয়েবসাইটের অর্গানিক ট্রাফিক এবং গ্রোথ রকেটের মতো বেড়ে যায়, তা লক্ষ্য করুন।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 400 300 -->
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <defs>
+                    <!-- গ্রাফের নিচের এরিয়া গ্রেডিয়েন্ট -->
+                    <linearGradient id="area-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="rgba(16, 185, 129, 0.5)" />
+                        <stop offset="100%" stop-color="rgba(16, 185, 129, 0)" />
+                    </linearGradient>
+                </defs>
+
+                <!-- ব্যাকগ্রাউন্ড গ্রিড -->
+                <line x1="40" y1="50" x2="360" y2="50" class="grid-line" />
+                <line x1="40" y1="100" x2="360" y2="100" class="grid-line" />
+                <line x1="40" y1="150" x2="360" y2="150" class="grid-line" />
+                <line x1="40" y1="200" x2="360" y2="200" class="grid-line" />
+
+                <!-- গ্রোথ এরিয়া (গ্রাফের নিচের অংশ) -->
+                <!-- লাইনটি যে পথ দিয়ে গেছে, সেই অনুযায়ী ক্লোজড পাথ -->
+                <path class="growth-area" d="M 50 180 C 120 180, 150 100, 220 120 C 280 130, 310 50, 350 50 L 350 200 L 50 200 Z" />
+
+                <!-- গ্রোথ লাইন (Line Chart) -->
+                <path class="growth-line" d="M 50 180 C 120 180, 150 100, 220 120 C 280 130, 310 50, 350 50" />
+
+                <!-- ডেটা নোডস (Data Points) -->
+                <circle cx="50" cy="180" r="5" class="data-node node-1" style="transform-origin: 50px 180px;" />
+                <circle cx="150" cy="116" r="5" class="data-node node-2" style="transform-origin: 150px 116px;" />
+                <circle cx="250" cy="126" r="5" class="data-node node-3" style="transform-origin: 250px 126px;" />
+                <circle cx="350" cy="50" r="6" class="data-node node-4" style="transform-origin: 350px 50px; stroke: #fbbf24; fill: #fbbf24;" /> <!-- টার্গেট পয়েন্ট (সোনালী) -->
+
+                <!-- সার্চ বার (নিচের দিকে) -->
+                <g transform="translate(50, 230)">
+                    <rect class="search-bar" x="0" y="0" width="300" height="40" />
+                    <text class="search-text" x="50" y="25">"best freelancing course"</text>
+                </g>
+
+                <!-- ম্যাগনিফাইং গ্লাস (সার্চ আইকন) -->
+                <!-- এটি সার্চ বারের ওপর দিয়ে স্ক্যান করবে -->
+                <g class="scanner-group" transform="translate(65, 250)">
+                    <circle cx="0" cy="0" r="10" class="mag-glass" />
+                    <line x1="7" y1="7" x2="16" y2="16" class="mag-handle" />
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
