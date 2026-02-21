@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Trade Network - Economics & ICT Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম স্টাইলিং - গ্লোবাল/স্পেস ফিল দেওয়ার জন্য */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #020617; /* খুব গাঢ় নীল/কালো */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #38bdf8; /* উজ্জ্বল স্কাই ব্লু */
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* গ্লোবের পেছনের হালকা গ্লো */
+        .globe-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(56,189,248,0.2) 0%, rgba(2,6,23,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+
+        /* গ্লোবের গ্রিড লাইন (অক্ষাংশ ও দ্রাঘিমাংশ) */
+        .globe-grid {
+            fill: none;
+            stroke: #1e293b;
+            stroke-width: 1.5;
+        }
+
+        /* মহাদেশের আউটলাইন (সিম্পলিফাইড) */
+        .continent {
+            fill: #0f172a;
+            stroke: #3b82f6;
+            stroke-width: 1;
+            opacity: 0.8;
+        }
+
+        /* ট্রেড রুট (আর্ক লাইন) */
+        .trade-route {
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 1.5;
+            opacity: 0.3;
+            stroke-dasharray: 4 4;
+        }
+
+        /* চলমান বিন্দু (Trade/Data Packets) */
+        .packet {
+            fill: #fff;
+            filter: drop-shadow(0 0 5px #38bdf8); /* উজ্জ্বল গ্লো */
+        }
+
+        /* সংযোগ বিন্দু (Nodes/Cities) */
+        .node {
+            fill: #38bdf8;
+            animation: nodePulse 2s infinite alternate;
+        }
+
+        /* অ্যানিমেশন কি-ফ্রেম */
+        @keyframes pulseGlow {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes nodePulse {
+            0% { r: 3; opacity: 0.6; }
+            100% { r: 5; opacity: 1; filter: drop-shadow(0 0 8px #38bdf8); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="globe-glow"></div>
+
+    <div class="container">
+        <h2>গ্লোবাল ট্রেড নেটওয়ার্ক</h2>
+        <p>বিশ্ব অর্থনীতি কীভাবে সংযুক্ত! আলোর বিন্দুগুলো আন্তর্জাতিক বাণিজ্য পথ এবং ডেটা আদান-প্রদান নির্দেশ করছে, যা আধুনিক অর্থনীতির প্রাণকেন্দ্র।</p>
+        
+        <div class="svg-container">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- গ্লোবের বাইরের বৃত্ত -->
+                <circle cx="150" cy="150" r="140" class="globe-grid" style="stroke: #3b82f6; opacity: 0.5;" />
+
+                <!-- অক্ষাংশ (Latitudes - Horizontal curves) -->
+                <ellipse cx="150" cy="150" rx="140" ry="40" class="globe-grid" />
+                <ellipse cx="150" cy="100" rx="131" ry="30" class="globe-grid" />
+                <ellipse cx="150" cy="200" rx="131" ry="30" class="globe-grid" />
+
+                <!-- দ্রাঘিমাংশ (Longitudes - Vertical curves) -->
+                <ellipse cx="150" cy="150" rx="40" ry="140" class="globe-grid" />
+                <ellipse cx="150" cy="150" rx="90" ry="140" class="globe-grid" />
+                <line x1="150" y1="10" x2="150" y2="290" class="globe-grid" />
+
+                <!-- সিম্পলিফাইড মহাদেশ (কিছু এবড়োখেবড়ো শেপ) -->
+                <!-- উত্তর আমেরিকা (ধরা যাক) -->
+                <path class="continent" d="M 60 80 Q 80 60 100 70 Q 120 90 90 120 Q 70 140 50 110 Z" />
+                <!-- ইউরোপ/এশিয়া -->
+                <path class="continent" d="M 160 50 Q 200 40 240 60 Q 260 100 220 130 Q 180 110 150 80 Z" />
+                <!-- দক্ষিণ আমেরিকা -->
+                <path class="continent" d="M 80 150 Q 100 160 110 200 Q 100 240 80 260 Q 60 210 70 180 Z" />
+                <!-- আফ্রিকা -->
+                <path class="continent" d="M 160 140 Q 190 130 210 170 Q 200 220 170 240 Q 140 190 150 160 Z" />
+
+                <!-- ট্রেড রুট (আর্ক লাইন) - ডেটা প্যাথ -->
+                <!-- Path 1: North America to Europe -->
+                <path id="route1" class="trade-route" d="M 100 90 Q 140 50 180 80" />
+                <!-- Path 2: Europe to Africa -->
+                <path id="route2" class="trade-route" d="M 200 90 Q 220 120 190 160" />
+                <!-- Path 3: South America to Africa -->
+                <path id="route3" class="trade-route" d="M 100 190 Q 130 220 160 190" />
+                <!-- Path 4: North America to South America -->
+                <path id="route4" class="trade-route" d="M 80 110 Q 50 150 90 180" />
+
+                <!-- নোড (Nodes/Cities) -->
+                <circle cx="100" cy="90" class="node" />  <!-- NY -->
+                <circle cx="180" cy="80" class="node" />  <!-- London/Europe -->
+                <circle cx="200" cy="90" class="node" />  <!-- Asia/Middle East -->
+                <circle cx="190" cy="160" class="node" /> <!-- Africa -->
+                <circle cx="100" cy="190" class="node" /> <!-- Brazil -->
+                <circle cx="160" cy="190" class="node" /> <!-- South Africa -->
+                <circle cx="80" cy="110" class="node" />  <!-- West Coast USA -->
+                <circle cx="90" cy="180" class="node" />  <!-- West Coast SA -->
+
+                <!-- চলমান বিন্দু (Data/Trade Packets) - <animateMotion> ব্যবহার করে -->
+                
+                <!-- প্যাকেট ১: Route 1 এ চলবে -->
+                <circle r="4" class="packet">
+                    <animateMotion dur="3s" repeatCount="indefinite">
+                        <mpath href="#route1"/>
+                    </animateMotion>
+                </circle>
+
+                <!-- প্যাকেট ২: Route 2 এ চলবে (একটু ভিন্ন গতি) -->
+                <circle r="3" class="packet">
+                    <animateMotion dur="2.5s" repeatCount="indefinite" begin="1s">
+                        <mpath href="#route2"/>
+                    </animateMotion>
+                </circle>
+
+                <!-- প্যাকেট ৩: Route 3 এ চলবে -->
+                <circle r="3.5" class="packet">
+                    <animateMotion dur="4s" repeatCount="indefinite" begin="0.5s">
+                        <mpath href="#route3"/>
+                    </animateMotion>
+                </circle>
+
+                <!-- প্যাকেট ৪: Route 4 এ চলবে -->
+                <circle r="3" class="packet">
+                    <animateMotion dur="3.5s" repeatCount="indefinite" begin="1.5s">
+                        <mpath href="#route4"/>
+                    </animateMotion>
+                </circle>
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
