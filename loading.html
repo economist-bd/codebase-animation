@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Loading Spinner - AI & Web Dev Demo</title>
+    <style>
+        /* বেসিক পেজ স্টাইলিং - মডার্ন ডার্ক থিম */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় নীল/কালো ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #e2e8f0;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+            max-width: 300px;
+        }
+
+        /* স্পিনার কন্টেইনার এবং অ্যানিমেশন স্টাইলিং */
+        .spinner-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            /* পালসিং ইফেক্টের জন্য অ্যানিমেশন */
+            animation: pulseEffect 2.5s ease-in-out infinite alternate;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .ring {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transform-origin: 50% 50%;
+        }
+
+        /* বাইরের নীল রিং */
+        .ring-outer {
+            stroke: #3b82f6; /* Tech Blue */
+            stroke-dasharray: 200;
+            stroke-dashoffset: 40;
+            animation: spinRotate 2s linear infinite;
+        }
+
+        /* মাঝের সবুজ রিং (উল্টো দিকে ঘুরবে) */
+        .ring-middle {
+            stroke: #10b981; /* Vibrant Green */
+            stroke-dasharray: 140;
+            stroke-dashoffset: 40;
+            animation: spinRotateReverse 1.5s linear infinite;
+        }
+
+        /* ভেতরের কমলা রিং */
+        .ring-inner {
+            stroke: #f59e0b; /* Energetic Orange */
+            stroke-dasharray: 80;
+            stroke-dashoffset: 20;
+            animation: spinRotate 1s linear infinite;
+        }
+
+        /* রোটেশন কি-ফ্রেম (Keyframes) */
+        @keyframes spinRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinRotateReverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* পালসিং (ছোট-বড় হওয়া) কি-ফ্রেম */
+        @keyframes pulseEffect {
+            0% { transform: scale(0.9); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Loading...</h2>
+        <p>Modern SVG Animation with Tech Blue, Vibrant Green & Energetic Orange.</p>
+        
+        <div class="spinner-wrapper">
+            <!-- SVG স্পিনার কোড -->
+            <svg viewBox="0 0 100 100">
+                <!-- বাইরের রিং (Tech Blue) -->
+                <circle class="ring ring-outer" cx="50" cy="50" r="44"></circle>
+                
+                <!-- মাঝের রিং (Vibrant Green) -->
+                <circle class="ring ring-middle" cx="50" cy="50" r="32"></circle>
+                
+                <!-- ভেতরের রিং (Energetic Orange) -->
+                <circle class="ring ring-inner" cx="50" cy="50" r="20"></circle>
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
