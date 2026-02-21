@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Growth Chart - AI & Economics Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম - ক্লাসরুম এবং প্রফেশনাল প্রেজেন্টেশনের জন্য */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0f172a; /* গাঢ় স্লেট ব্যাকগ্রাউন্ড */
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #10b981; /* ইমারল্ড গ্রিন - প্রবৃদ্ধির প্রতীক */
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            max-width: 450px;
+            line-height: 1.6;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        /* চার্টের অক্ষ (X ও Y Axis) */
+        .axis-line {
+            stroke: #64748b;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        /* অক্ষের লেবেল এবং টেক্সট */
+        .axis-text {
+            fill: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* বার চার্টের স্টাইলিং এবং অ্যানিমেশন */
+        .bar {
+            fill: #3b82f6; /* ডিফল্ট নীল রং */
+            rx: 4px; /* বারের ওপরের দিকটা একটু গোলাকার (rounded corners) */
+            /* প্রথমে বারগুলোর উচ্চতা 0 থাকবে, অ্যানিমেশনের মাধ্যমে বাড়বে */
+            transform-origin: bottom;
+            transform: scaleY(0);
+            animation: growBar 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* প্রতিটি বারের রং এবং অ্যানিমেশন ডিলে (Delay) ভিন্ন ভিন্ন */
+        .bar-1 { fill: #3b82f6; animation-delay: 0.2s; }
+        .bar-2 { fill: #60a5fa; animation-delay: 0.4s; }
+        .bar-3 { fill: #818cf8; animation-delay: 0.6s; }
+        .bar-4 { fill: #a78bfa; animation-delay: 0.8s; }
+        .bar-5 { fill: #c084fc; animation-delay: 1.0s; }
+        /* শেষ বারটি সবচেয়ে বড় এবং অন্য রঙের */
+        .bar-6 { fill: #f472b6; animation-delay: 1.2s; }
+
+        /* প্রবৃদ্ধির ট্রেন্ড অ্যারো (Trend Arrow) */
+        .trend-line {
+            stroke: #10b981; /* উজ্জ্বল সবুজ */
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); /* গ্লো ইফেক্ট */
+            /* লাইন আঁকার অ্যানিমেশন */
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawTrend 2s ease-in-out 1.5s forwards; /* বারগুলো ওঠার পর শুরু হবে */
+        }
+
+        .trend-arrow-head {
+            fill: #10b981;
+            opacity: 0;
+            /* ট্রেন্ড লাইন আঁকা শেষ হলে অ্যারো হেডটি দৃশ্যমান হবে */
+            animation: fadeIn 0.5s ease-in 3.2s forwards;
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+        @keyframes growBar {
+            0% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+
+        @keyframes drawTrend {
+            0% { stroke-dashoffset: 400; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* বারের মান (Value) দেখানোর টেক্সট */
+        .bar-value {
+            fill: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            opacity: 0;
+            /* বার ওঠার পর মানগুলো দেখাবে */
+            animation: fadeInValue 0.5s ease-in forwards;
+        }
+
+        /* প্রতিটি বারের মানের ডিলে মেলানো হয়েছে বারের অ্যানিমেশনের সাথে */
+        .val-1 { animation-delay: 0.6s; }
+        .val-2 { animation-delay: 0.8s; }
+        .val-3 { animation-delay: 1.0s; }
+        .val-4 { animation-delay: 1.2s; }
+        .val-5 { animation-delay: 1.4s; }
+        .val-6 { animation-delay: 1.6s; }
+
+        @keyframes fadeInValue {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>অর্থনৈতিক প্রবৃদ্ধি (Economic Growth)</h2>
+        <p>সময়ের সাথে সাথে জিডিপি (GDP) বা উৎপাদনের ধারাবাহিক বৃদ্ধি। ক্রমান্বয়ে ঊর্ধ্বমুখী বার এবং সবুজ ট্রেন্ড লাইন একটি শক্তিশালী অর্থনীতির নির্দেশক।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 400 300 -->
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                
+                <!-- ব্যাকগ্রাউন্ড গ্রিড লাইন (হালকা ধূসর) -->
+                <line x1="50" y1="50" x2="380" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="50" y1="100" x2="380" y2="100" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="50" y1="150" x2="380" y2="150" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="50" y1="200" x2="380" y2="200" stroke="#334155" stroke-width="1" stroke-dasharray="4 4"/>
+
+                <!-- Y-Axis (GDP / Growth %) -->
+                <path class="axis-line" d="M 50 250 L 50 30" />
+                <text x="15" y="40" class="axis-text">GDP</text>
+                <text x="25" y="105" class="axis-text">6%</text>
+                <text x="25" y="155" class="axis-text">4%</text>
+                <text x="25" y="205" class="axis-text">2%</text>
+                <text x="25" y="255" class="axis-text">0</text>
+
+                <!-- X-Axis (Years) -->
+                <path class="axis-line" d="M 50 250 L 380 250" />
+                <text x="75" y="270" class="axis-text">2021</text>
+                <text x="125" y="270" class="axis-text">2022</text>
+                <text x="175" y="270" class="axis-text">2023</text>
+                <text x="225" y="270" class="axis-text">2024</text>
+                <text x="275" y="270" class="axis-text">2025</text>
+                <text x="325" y="270" class="axis-text">2026</text>
+
+                <!-- বার চার্ট (Bar Chart) - নিচ থেকে উপরের দিকে স্কেল হবে -->
+                <!-- transform-origin: 250px (X-Axis এর লাইন) যাতে নিচ থেকে বাড়ে -->
+                <g style="transform-origin: center 250px;">
+                    <!-- Year 1 -->
+                    <rect class="bar bar-1" x="70" y="180" width="30" height="70" />
+                    <text class="bar-value val-1" x="76" y="170">3.5</text>
+                    
+                    <!-- Year 2 -->
+                    <rect class="bar bar-2" x="120" y="150" width="30" height="100" />
+                    <text class="bar-value val-2" x="126" y="140">4.2</text>
+                    
+                    <!-- Year 3 -->
+                    <rect class="bar bar-3" x="170" y="130" width="30" height="120" />
+                    <text class="bar-value val-3" x="176" y="120">5.0</text>
+                    
+                    <!-- Year 4 -->
+                    <rect class="bar bar-4" x="220" y="110" width="30" height="140" />
+                    <text class="bar-value val-4" x="226" y="100">5.8</text>
+                    
+                    <!-- Year 5 -->
+                    <rect class="bar bar-5" x="270" y="80" width="30" height="170" />
+                    <text class="bar-value val-5" x="276" y="70">6.5</text>
+                    
+                    <!-- Year 6 -->
+                    <rect class="bar bar-6" x="320" y="40" width="30" height="210" />
+                    <text class="bar-value val-6" x="326" y="30">8.1</text>
+                </g>
+
+                <!-- প্রবৃদ্ধির ট্রেন্ড লাইন (Trend Line) -->
+                <!-- বারের ওপর দিয়ে একটি লাইন আঁকা হবে -->
+                <path class="trend-line" d="M 85 180 L 135 150 L 185 130 L 235 110 L 285 80 L 335 40" />
+                
+                <!-- ট্রেন্ড লাইনের মাথায় একটি অ্যারো (Arrow Head) -->
+                <polygon class="trend-arrow-head" points="325,45 335,40 340,50" style="transform-origin: 335px 40px;" />
+
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
