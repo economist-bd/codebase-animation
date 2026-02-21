@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডিজিটাল কারেন্সি বা ক্রিপ্টো - ICT & Economics Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0b0f19; /* ডিপ ডার্ক ব্লু / ক্রিপ্টো থিম */
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.15); /* হালকা সোনালী বর্ডার */
+            z-index: 10;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #fbbf24; /* গোল্ডেন/সোনালী রং */
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            perspective: 800px; /* 3D স্পিনের জন্য পার্সপেক্টিভ */
+        }
+
+        /* কয়েন ভাসমান রাখার অ্যানিমেশন (Up and Down Float) */
+        .floating-wrapper {
+            width: 100%;
+            height: 100%;
+            animation: floatEffect 4s ease-in-out infinite;
+        }
+
+        /* কয়েনের 3D ঘূর্ণন অ্যানিমেশন (Y-Axis Spin) */
+        .spinning-coin {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: spin3D 4s linear infinite;
+        }
+
+        /* কয়েনের ভেতরের আলোর ছটা (Shine Effect) */
+        .shine-layer {
+            fill: url(#shine-gradient);
+            /* আলোটি বাম থেকে ডানে যাবে */
+            animation: sweepingShine 4s linear infinite;
+        }
+
+        /* কয়েনের চারপাশের গ্লো */
+        .coin-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(251, 191, 36, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: blur(40px);
+            z-index: -1;
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশনসমূহ */
+        @keyframes spin3D {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        @keyframes floatEffect {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); } /* একটু উপরে উঠবে */
+        }
+
+        @keyframes sweepingShine {
+            0%, 15% { transform: translateX(-200px) skewX(-20deg); }
+            50%, 100% { transform: translateX(200px) skewX(-20deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ব্যাকগ্রাউন্ড গ্লো -->
+    <div class="coin-glow"></div>
+
+    <div class="container">
+        <h2>ডিজিটাল কারেন্সি (Crypto)</h2>
+        <p>ভবিষ্যতের অর্থনীতি! ক্রিপ্টোকারেন্সি বা ডিজিটাল মুদ্রা কীভাবে কাজ করে এবং ওয়েবসাইটে এর ভিজ্যুয়াল কীভাবে উপস্থাপন করা হয়, তা দেখুন।</p>
+        
+        <div class="svg-container">
+            <div class="floating-wrapper">
+                <div class="spinning-coin">
+                    <!-- SVG কয়েন -->
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- কয়েনের সোনালী গ্রেডিয়েন্ট রং -->
+                            <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fef08a" />    /* হালকা সোনালী */
+                                <stop offset="50%" stop-color="#eab308" />   /* আসল সোনালী */
+                                <stop offset="100%" stop-color="#a16207" />  /* গাঢ় সোনালী/ব্রোঞ্জ */
+                            </linearGradient>
+
+                            <!-- কয়েনের ভেতরের অংশের গ্রেডিয়েন্ট (একটু ভিন্ন কোণে) -->
+                            <linearGradient id="inner-gold" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#fef08a" />
+                                <stop offset="40%" stop-color="#ca8a04" />
+                                <stop offset="100%" stop-color="#854d0e" />
+                            </linearGradient>
+
+                            <!-- আলোর ছটা (Shine) গ্রেডিয়েন্ট -->
+                            <linearGradient id="shine-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="rgba(255,255,255,0)" />
+                                <stop offset="50%" stop-color="rgba(255,255,255,0.7)" />
+                                <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                            </linearGradient>
+
+                            <!-- ক্লিপ পাথ (যাতে আলো কয়েনের বাইরে না যায়) -->
+                            <clipPath id="coin-circle">
+                                <circle cx="100" cy="100" r="85" />
+                            </clipPath>
+                        </defs>
+
+                        <!-- কয়েনের বাইরের রিং (Border / Edge) -->
+                        <circle cx="100" cy="100" r="90" fill="url(#gold-gradient)" stroke="#713f12" stroke-width="2" />
+                        
+                        <!-- কয়েনের ভেতরের অংশ (Inner Face) -->
+                        <circle cx="100" cy="100" r="75" fill="url(#inner-gold)" />
+
+                        <!-- ক্রিপ্টো কারেন্সি প্রতীক (যেমন: বিটকয়েন বা ডিজিটাল 'D' এর আদলে) -->
+                        <g transform="translate(100, 100)" fill="#fef08a" stroke="#ca8a04" stroke-width="2">
+                            <!-- একটি আধুনিক ডিজিটাল চিহ্ন -->
+                            <path d="M -15 -35 L 20 -35 Q 40 -35 40 -10 Q 40 5 20 5 L -15 5 Z" fill="none" stroke-width="6"/>
+                            <path d="M -15 5 L 25 5 Q 45 5 45 35 Q 45 55 25 55 L -15 55 Z" fill="none" stroke-width="6"/>
+                            <!-- দুটি উল্লম্ব লাইন (কয়েনের সাধারণ বৈশিষ্ট্য) -->
+                            <line x1="-5" y1="-45" x2="-5" y2="65" stroke-width="6" />
+                            <line x1="10" y1="-45" x2="10" y2="65" stroke-width="6" />
+                        </g>
+
+                        <!-- চকচকে আলোর ছটা (Shine Layer) -->
+                        <g clip-path="url(#coin-circle)">
+                            <!-- একটি লম্বা আয়তক্ষেত্র যা অ্যানিমেশনের মাধ্যমে বাম থেকে ডানে যাবে -->
+                            <rect class="shine-layer" x="-50" y="0" width="80" height="200" />
+                        </g>
+
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
