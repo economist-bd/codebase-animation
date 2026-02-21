@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেসপন্সিভ ডিজাইন অ্যানিমেশন - AI & ICT Demo</title>
+    <style>
+        /* মডার্ন ডার্ক থিম স্টাইলিং */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e2f; /* গাঢ় ব্যাকগ্রাউন্ড */
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #4ade80; /* সফট গ্রিন */
+        }
+
+        p {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            max-width: 350px;
+            line-height: 1.5;
+        }
+
+        /* অ্যানিমেশন কন্টেইনার */
+        .svg-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        /* SVG এলিমেন্টগুলোর স্টাইলিং এবং ট্রানজিশন */
+        .device-bezel {
+            fill: #3f3f46;
+            animation: morphBezel 8s ease-in-out infinite;
+        }
+
+        .device-screen {
+            fill: #0ea5e9; /* উজ্জ্বল নীল (স্ক্রিনের আলো) */
+            animation: morphScreen 8s ease-in-out infinite;
+        }
+
+        .device-stand-neck {
+            fill: #71717a;
+            animation: morphNeck 8s ease-in-out infinite;
+        }
+
+        .device-stand-base {
+            fill: #52525b;
+            animation: morphBase 8s ease-in-out infinite;
+        }
+
+        /* কি-ফ্রেম অ্যানিমেশন: ডেস্কটপ -> ল্যাপটপ -> ট্যাবলেট -> মোবাইল */
+        
+        @keyframes morphBezel {
+            /* Desktop */
+            0%, 15% { width: 160px; height: 100px; x: 20px; y: 30px; rx: 8px; }
+            /* Laptop */
+            25%, 40% { width: 140px; height: 90px; x: 30px; y: 45px; rx: 6px; }
+            /* Tablet */
+            50%, 65% { width: 100px; height: 140px; x: 50px; y: 20px; rx: 12px; }
+            /* Mobile */
+            75%, 90% { width: 60px; height: 120px; x: 70px; y: 30px; rx: 10px; }
+            /* Back to Desktop */
+            100% { width: 160px; height: 100px; x: 20px; y: 30px; rx: 8px; }
+        }
+
+        @keyframes morphScreen {
+            /* Desktop */
+            0%, 15% { width: 150px; height: 90px; x: 25px; y: 35px; rx: 4px; }
+            /* Laptop */
+            25%, 40% { width: 130px; height: 80px; x: 35px; y: 50px; rx: 3px; }
+            /* Tablet */
+            50%, 65% { width: 90px; height: 130px; x: 55px; y: 25px; rx: 8px; }
+            /* Mobile */
+            75%, 90% { width: 50px; height: 110px; x: 75px; y: 35px; rx: 6px; }
+            /* Back to Desktop */
+            100% { width: 150px; height: 90px; x: 25px; y: 35px; rx: 4px; }
+        }
+
+        @keyframes morphNeck {
+            /* Desktop */
+            0%, 15% { width: 20px; height: 30px; x: 90px; y: 130px; opacity: 1; }
+            /* Laptop (Hide) */
+            25%, 100% { width: 20px; height: 0px; x: 90px; y: 135px; opacity: 0; }
+        }
+
+        @keyframes morphBase {
+            /* Desktop */
+            0%, 15% { width: 60px; height: 10px; x: 70px; y: 160px; rx: 4px; opacity: 1; }
+            /* Laptop (Keyboard base) */
+            25%, 40% { width: 160px; height: 8px; x: 20px; y: 135px; rx: 2px; opacity: 1; }
+            /* Tablet & Mobile (Hide) */
+            50%, 100% { width: 60px; height: 0px; x: 70px; y: 160px; opacity: 0; }
+        }
+
+        /* একটি ছোট পালসিং গ্লো ইফেক্ট */
+        .glow {
+            filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.6));
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>রেসপন্সিভ ওয়েব ডিজাইন</h2>
+        <p>স্ক্রিনের আকার অনুযায়ী ওয়েবসাইট কীভাবে ডেস্কটপ থেকে মোবাইল ভিউতে মানিয়ে নেয়, তা লক্ষ্য করুন।</p>
+        
+        <div class="svg-container">
+            <!-- viewBox 0 0 200 200 এর মধ্যে পুরো ক্যানভাসটি সেট করা হয়েছে -->
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="glow">
+                
+                <!-- মনিটরের স্ট্যান্ডের গলা -->
+                <rect class="device-stand-neck" />
+                
+                <!-- মনিটরের স্ট্যান্ডের বেস / ল্যাপটপের কীবোর্ড অংশ -->
+                <rect class="device-stand-base" />
+                
+                <!-- ডিভাইসের বাইরের ফ্রেম বা বডি -->
+                <rect class="device-bezel" />
+                
+                <!-- ডিভাইসের ভেতরের স্ক্রিন (নীল রঙের আলো) -->
+                <rect class="device-screen" />
+                
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
